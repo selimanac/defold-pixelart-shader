@@ -1,0 +1,28 @@
+[bootstrap]
+main_collection = /main/main.collectionc
+render = /orthographic/render/orthographic.renderc
+
+[script]
+shared_state = 1
+
+[display]
+width = 1280
+height = 720
+
+[android]
+input_method = HiddenInputField
+
+[project]
+title = defold-pixelart
+
+[native_extension]
+app_manifest = /manifest/vulkan.appmanifest
+
+[graphics]
+default_texture_min_filter = linear
+default_texture_mag_filter = linear
+
+[input]
+repeat_delay = 0.0
+repeat_interval = 0.0
+

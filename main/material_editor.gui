@@ -1,0 +1,89 @@
+script: "/scripts/material_editor.gui_script"
+nodes {
+  position {
+    x: 1280.0
+    y: 720.0
+  }
+  size {
+    x: 300.0
+    y: 220.0
+  }
+  color {
+    x: 0.2
+    y: 0.2
+    z: 0.2
+  }
+  type: TYPE_BOX
+  id: "right_container"
+  xanchor: XANCHOR_RIGHT
+  yanchor: YANCHOR_TOP
+  pivot: PIVOT_NE
+  layer: "gfx"
+  inherit_alpha: true
+}
+nodes {
+  type: TYPE_TEMPLATE
+  id: "slider_group_template"
+  layer: "gfx"
+  inherit_alpha: true
+  template: "/main/slider/slider_group.gui"
+  enabled: false
+}
+nodes {
+  type: TYPE_BOX
+  id: "slider_group_template/container"
+  parent: "slider_group_template"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEXT
+  id: "slider_group_template/group_label"
+  parent: "slider_group_template/container"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEMPLATE
+  id: "slider_template"
+  layer: "gfx"
+  inherit_alpha: true
+  template: "/main/slider/slider.gui"
+  enabled: false
+}
+nodes {
+  type: TYPE_BOX
+  id: "slider_template/container"
+  parent: "slider_template"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "slider_template/back"
+  parent: "slider_template/container"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "slider_template/handle"
+  parent: "slider_template/back"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEXT
+  id: "slider_template/label"
+  parent: "slider_template/container"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEXT
+  id: "slider_template/value"
+  parent: "slider_template/container"
+  template_node_child: true
+}
+layers {
+  name: "gfx"
+}
+layers {
+  name: "text"
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT

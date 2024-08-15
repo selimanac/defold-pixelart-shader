@@ -1,0 +1,13 @@
+/.internal
+/build
+.externalToolBuilders
+.DS_Store
+Thumbs.db
+.lock-wscript
+*.pyc
+.project
+.cproject
+builtins
+.clang-format
+*.sublime-project
+*.sublime-workspace

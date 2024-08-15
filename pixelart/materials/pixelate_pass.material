@@ -1,0 +1,34 @@
+name: "pixelate_pass"
+tags: "pixelate_pass"
+vertex_program: "/pixelart/materials/pixelate_pass.vp"
+fragment_program: "/pixelart/materials/pixelate_pass.fp"
+vertex_space: VERTEX_SPACE_LOCAL
+vertex_constants {
+  name: "mtx_worldview"
+  type: CONSTANT_TYPE_WORLDVIEW
+}
+vertex_constants {
+  name: "mtx_view"
+  type: CONSTANT_TYPE_VIEW
+}
+vertex_constants {
+  name: "mtx_proj"
+  type: CONSTANT_TYPE_PROJECTION
+}
+vertex_constants {
+  name: "mtx_normal"
+  type: CONSTANT_TYPE_NORMAL
+}
+vertex_constants {
+  name: "resolution"
+  type: CONSTANT_TYPE_USER
+  value {
+  }
+}
+samplers {
+  name: "diffuse_texture"
+  wrap_u: WRAP_MODE_CLAMP_TO_EDGE
+  wrap_v: WRAP_MODE_CLAMP_TO_EDGE
+  filter_min: FILTER_MODE_MIN_NEAREST
+  filter_mag: FILTER_MODE_MAG_NEAREST
+}

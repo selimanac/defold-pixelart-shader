@@ -1,0 +1,69 @@
+go.property("target", hash("/camera_orbit_target"))
+go.property("distance", 50)
+go.property("distance_min", 20)
+go.property("distance_max", 100)
+go.property("wheel_speed", 50)
+go.property("angle_x", -0.2)
+go.property("angle_y", 0.0)
+go.property("angle_min", -0.2)
+go.property("angle_max", -0.2)
+
+
+local models = require("scripts.models")
+
+local function set_camera(self)
+	self.center = self.target ~= hash("") and go.get_world_position(self.target) or vmath.vector3(0)
+
+	local rot = vmath.quat_rotation_y(self.angle_y) * vmath.quat_rotation_x(self.angle_x)
+	local pos = vmath.rotate(rot, vmath.vector3(0, 0, self.distance)) + self.center
+
+	go.set_rotation(rot)
+	go.set_position(pos)
+end
+
+
+function init(self)
+	msg.post(".", "acquire_input_focus")
+
+	self.touch_down = false
+
+	set_camera(self)
+end
+
+function update(self, dt)
+	if self.target ~= hash("") and self.center ~= go.get_world_position(self.target) then
+		set_camera(self)
+	end
+end
+
+function on_input(self, action_id, action)
+	if models.is_updating == true then
+		return
+	end
+	if action_id == hash("touch") then
+		self.touch_down = true
+		if action.released then
+			self.touch_down = false
+		end
+	end
+
+	if self.touch_down and action_id == nil then
+		self.angle_x = self.angle_x + action.dy * 0.01
+		self.angle_y = self.angle_y - action.dx * 0.01
+
+		self.angle_x = math.min(self.angle_x, self.angle_max)
+		self.angle_x = math.max(self.angle_x, self.angle_min)
+
+		set_camera(self)
+	end
+
+	if action_id == hash("wheel_down") then
+		self.distance = self.distance + self.wheel_speed * 0.20
+		self.distance = math.min(self.distance, self.distance_max)
+		set_camera(self)
+	elseif action_id == hash("wheel_up") then
+		self.distance = self.distance - self.wheel_speed * 0.20
+		self.distance = math.max(self.distance, self.distance_min)
+		set_camera(self)
+	end
+end

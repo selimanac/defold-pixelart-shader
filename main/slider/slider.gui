@@ -1,0 +1,90 @@
+script: ""
+fonts {
+  name: "default"
+  font: "/builtins/fonts/default.font"
+}
+nodes {
+  size {
+    x: 270.0
+    y: 20.0
+  }
+  type: TYPE_BOX
+  id: "container"
+  pivot: PIVOT_W
+  layer: "gfx"
+  inherit_alpha: true
+  alpha: 0.0
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 76.0
+  }
+  size {
+    x: 100.0
+    y: 20.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_BOX
+  id: "back"
+  pivot: PIVOT_W
+  parent: "container"
+  layer: "gfx"
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  size {
+    x: 30.0
+    y: 16.0
+  }
+  color {
+    x: 0.6
+    y: 0.6
+    z: 0.6
+  }
+  type: TYPE_BOX
+  id: "handle"
+  parent: "back"
+  layer: "gfx"
+}
+nodes {
+  size {
+    x: 50.0
+    y: 20.0
+  }
+  type: TYPE_TEXT
+  text: "label"
+  font: "default"
+  id: "label"
+  pivot: PIVOT_W
+  parent: "container"
+  layer: "text"
+}
+nodes {
+  position {
+    x: 203.0
+  }
+  size {
+    x: 50.0
+    y: 20.0
+  }
+  type: TYPE_TEXT
+  text: "value"
+  font: "default"
+  id: "value"
+  pivot: PIVOT_W
+  parent: "container"
+  layer: "text"
+}
+layers {
+  name: "gfx"
+}
+layers {
+  name: "text"
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT

@@ -1,0 +1,97 @@
+platforms:
+  armv7-ios:
+    context:
+      excludeLibs: [record, vpx, liveupdate]
+      excludeSymbols: []
+      symbols: []
+      libs: [record_null, liveupdate_null]
+      frameworks: []
+      linkFlags: []
+  arm64-ios:
+    context:
+      excludeLibs: [record, vpx, liveupdate, graphics]
+      excludeSymbols: [GraphicsAdapterOpenGL]
+      symbols: [GraphicsAdapterVulkan]
+      libs: [record_null, liveupdate_null, graphics_vulkan, MoltenVK]
+      frameworks: [Metal, IOSurface, QuartzCore]
+      linkFlags: []
+  x86_64-ios:
+    context:
+      excludeLibs: [record, vpx, liveupdate]
+      excludeSymbols: []
+      symbols: []
+      libs: [record_null, liveupdate_null]
+      frameworks: []
+      linkFlags: []
+  armv7-android:
+    context:
+      excludeLibs: [record, vpx, liveupdate, graphics]
+      excludeJars: []
+      excludeSymbols: [GraphicsAdapterOpenGL]
+      symbols: [GraphicsAdapterVulkan]
+      libs: [record_null, liveupdate_null, graphics_vulkan]
+      linkFlags: []
+      jetifier: true
+  arm64-android:
+    context:
+      excludeLibs: [record, vpx, liveupdate, graphics]
+      excludeJars: []
+      excludeSymbols: [GraphicsAdapterOpenGL]
+      symbols: [GraphicsAdapterVulkan]
+      libs: [record_null, liveupdate_null, graphics_vulkan]
+      linkFlags: []
+      jetifier: true
+  arm64-osx:
+    context:
+      excludeLibs: [record, vpx, liveupdate, platform, graphics]
+      excludeSymbols: [GraphicsAdapterOpenGL]
+      symbols: [GraphicsAdapterVulkan]
+      libs: [record_null, liveupdate_null, platform_vulkan, graphics_vulkan, MoltenVK]
+      frameworks: [Metal, IOSurface, QuartzCore]
+      linkFlags: []
+  x86_64-osx:
+    context:
+      excludeLibs: [record, vpx, liveupdate, platform, graphics]
+      excludeSymbols: [GraphicsAdapterOpenGL]
+      symbols: [GraphicsAdapterVulkan]
+      libs: [record_null, liveupdate_null, platform_vulkan, graphics_vulkan, MoltenVK]
+      frameworks: [Metal, IOSurface, QuartzCore]
+      linkFlags: []
+  x86_64-linux:
+    context:
+      excludeLibs: [record, vpx, liveupdate, graphics]
+      excludeSymbols: [GraphicsAdapterOpenGL]
+      symbols: [GraphicsAdapterVulkan]
+      libs: [record_null, liveupdate_null, graphics_vulkan, X11-xcb]
+      dynamicLibs: [vulkan]
+      linkFlags: []
+  x86-win32:
+    context:
+      excludeLibs: [librecord, vpx, libliveupdate, libplatform, libgraphics]
+      excludeSymbols: [GraphicsAdapterOpenGL]
+      symbols: [GraphicsAdapterVulkan]
+      libs: [librecord_null.lib, libliveupdate_null.lib, libplatform_vulkan.lib, libgraphics_vulkan.lib, vulkan-1.lib]
+      linkFlags: []
+  x86_64-win32:
+    context:
+      excludeLibs: [librecord, vpx, libliveupdate, libplatform, libgraphics]
+      excludeSymbols: [GraphicsAdapterOpenGL]
+      symbols: [GraphicsAdapterVulkan]
+      libs: [librecord_null.lib, libliveupdate_null.lib, libplatform_vulkan.lib, libgraphics_vulkan.lib, vulkan-1.lib]
+      linkFlags: []
+  js-web:
+    context:
+      excludeLibs: [record, vpx, liveupdate]
+      excludeJsLibs: []
+      excludeSymbols: []
+      symbols: []
+      libs: [record_null, liveupdate_null]
+      linkFlags: []
+  wasm-web:
+    context:
+      excludeLibs: [record, vpx, liveupdate]
+      excludeJsLibs: []
+      excludeSymbols: []
+      symbols: []
+      libs: [record_null, liveupdate_null]
+      linkFlags: []

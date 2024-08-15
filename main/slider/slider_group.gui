@@ -1,0 +1,37 @@
+script: ""
+fonts {
+  name: "default"
+  font: "/builtins/fonts/default.font"
+}
+nodes {
+  size {
+    x: 250.0
+    y: 20.0
+  }
+  type: TYPE_BOX
+  id: "container"
+  pivot: PIVOT_W
+  inherit_alpha: true
+  alpha: 0.0
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  size {
+    x: 200.0
+    y: 20.0
+  }
+  type: TYPE_TEXT
+  text: "toon_color"
+  font: "default"
+  id: "group_label"
+  pivot: PIVOT_W
+  parent: "container"
+}
+layers {
+  name: "text"
+}
+layers {
+  name: "gfx"
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT

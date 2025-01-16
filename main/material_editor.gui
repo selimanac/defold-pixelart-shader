@@ -113,7 +113,7 @@ nodes {
   }
   type: TYPE_TEXT
   text: "Left click and drag the mouse to rotate  the camera\n"
-  "Press -SPACE- for auto rotate"
+  "Press -SPACE- to toggle auto rotate"
   font: "default"
   id: "text"
   xanchor: XANCHOR_LEFT

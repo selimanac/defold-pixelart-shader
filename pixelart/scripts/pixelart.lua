@@ -13,8 +13,8 @@ local settings              = {
 
 ---Post Process targets
 pixelart.POST_PROCESS       = {
-	PIXELATE = '/post_process#pixelate_pass',
-	RENDER = '/post_process#render_pixelated_pass'
+	PIXELATE = '/pixelart_post_process#pixelate_pass',
+	RENDER = '/pixelart_post_process#render_pixelated_pass'
 }
 
 ---Light orthographic projection settings. Values are per-scene dependent and must be tweaked accordingly.

@@ -69,12 +69,12 @@ function pixelart_render.init(self)
 	self.bias_matrix.c3                    = vmath.vector4(0.5, 0.5, 0.5, 1.0)
 end
 
-function pixelart_render.update(self, state, predicates)
+function pixelart_render.update(self)
 	---------------------------------------------------
 	-- resize render targets
-	render.set_render_target_size(self.pixelart_render_target, state.window_width, state.window_height)
-	render.set_render_target_size(self.pixelart_pixelate_render_target, state.window_width, state.window_height)
-	render.set_render_target_size(self.shadow_render_target, state.window_width, state.window_height)
+	render.set_render_target_size(self.pixelart_render_target, self.state.window_width, self.state.window_height)
+	render.set_render_target_size(self.pixelart_pixelate_render_target, self.state.window_width, self.state.window_height)
+	render.set_render_target_size(self.shadow_render_target, self.state.window_width, self.state.window_height)
 
 	---------------------------------------------------
 	-- lights
@@ -96,28 +96,28 @@ function pixelart_render.update(self, state, predicates)
 
 	render.enable_state(graphics.FACE_TYPE_FRONT)
 	render.set_render_target(self.shadow_render_target, { transient = { graphics.BUFFER_TYPE_DEPTH_BIT } })
-	render.clear(state.clear_buffers)
+	render.clear(self.state.clear_buffers)
 
 	render.enable_material("shadow_pass")
-	render.draw(predicates.pixelart_model, { frustum = frustum })
+	render.draw(self.predicates.pixelart_model, { frustum = frustum })
 	render.disable_material()
 
 	---------------------------------------------------
 	-- depth
-	render.set_view(state.cameras.camera_world.view)
-	render.set_projection(state.cameras.camera_world.proj)
+	render.set_view(self.state.cameras.camera_world.view)
+	render.set_projection(self.state.cameras.camera_world.proj)
 
 	render.enable_state(graphics.STATE_CULL_FACE)
 
 	render.set_render_target(self.pixelart_render_target, { transient = { graphics.BUFFER_TYPE_DEPTH_BIT } })
-	render.clear(state.clear_buffers)
+	render.clear(self.state.clear_buffers)
 
 	-- draw model to depth
-	render.draw(predicates.pixelart_model, { state.cameras.camera_world.options })
+	render.draw(self.predicates.pixelart_model, { self.state.cameras.camera_world.options })
 
 	-- Shadow
 	render.enable_texture('shadow_render_depth_texture', self.shadow_render_target, graphics.BUFFER_TYPE_DEPTH_BIT)
-	render.draw(predicates.shadow_render, { frustum = frustum, constants = self.light_constant_buffer })
+	render.draw(self.predicates.shadow_render, { frustum = frustum, constants = self.light_constant_buffer })
 	render.disable_texture('shadow_render_depth_texture')
 
 	render.disable_state(graphics.STATE_CULL_FACE)
@@ -131,12 +131,12 @@ function pixelart_render.update(self, state, predicates)
 	---------------------------------------------------
 	-- render pixelart_render_target to first pass
 	render.set_render_target(self.pixelart_pixelate_render_target)
-	render.clear(state.clear_buffers)
+	render.clear(self.state.clear_buffers)
 	render.enable_texture('diffuse_texture', self.pixelart_render_target, graphics.BUFFER_TYPE_COLOR0_BIT)
 	render.enable_texture('normal_texture', self.pixelart_render_target, graphics.BUFFER_TYPE_COLOR0_BIT)
 	render.enable_texture('depth_texture', self.pixelart_render_target, graphics.BUFFER_TYPE_DEPTH_BIT)
 
-	render.draw(predicates.post_pixelated_pass)
+	render.draw(self.predicates.post_pixelated_pass)
 
 	render.disable_texture('diffuse_texture')
 	render.disable_texture('normal_texture')
@@ -147,7 +147,7 @@ function pixelart_render.update(self, state, predicates)
 	render.set_render_target(render.RENDER_TARGET_DEFAULT)
 
 	render.enable_texture('diffuse_texture', self.pixelart_pixelate_render_target, graphics.BUFFER_TYPE_COLOR0_BIT)
-	render.draw(predicates.pixelate_pass)
+	render.draw(self.predicates.pixelate_pass)
 	render.disable_texture('diffuse_texture')
 
 	render.disable_state(graphics.STATE_DEPTH_TEST)

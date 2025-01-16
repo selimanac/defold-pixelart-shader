@@ -1,4 +1,8 @@
 script: "/scripts/material_editor.gui_script"
+fonts {
+  name: "default"
+  font: "/builtins/fonts/default.font"
+}
 nodes {
   position {
     x: 1280.0
@@ -78,6 +82,46 @@ nodes {
   id: "slider_template/value"
   parent: "slider_template/container"
   template_node_child: true
+}
+nodes {
+  size {
+    x: 500.0
+    y: 70.0
+  }
+  color {
+    x: 0.2
+    y: 0.2
+    z: 0.2
+  }
+  type: TYPE_BOX
+  id: "box"
+  xanchor: XANCHOR_LEFT
+  yanchor: YANCHOR_BOTTOM
+  pivot: PIVOT_SW
+  layer: "gfx"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 35.0
+    y: 16.0
+  }
+  size {
+    x: 200.0
+    y: 40.0
+  }
+  type: TYPE_TEXT
+  text: "Left click and drag the mouse to rotate  the camera\n"
+  "Press -SPACE- for auto rotate"
+  font: "default"
+  id: "text"
+  xanchor: XANCHOR_LEFT
+  yanchor: YANCHOR_BOTTOM
+  pivot: PIVOT_SW
+  parent: "box"
+  layer: "text"
+  inherit_alpha: true
 }
 layers {
   name: "gfx"

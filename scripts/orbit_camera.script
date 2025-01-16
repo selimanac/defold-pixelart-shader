@@ -33,8 +33,12 @@ function init(self)
 
 	self.angle_min = math.rad(self.angle_min)
 	self.angle_max = math.rad(self.angle_max)
-
+	self.turn_table = false
 	set_camera(self)
+end
+
+local function toogle_auto_turn(self)
+	self.turn_table = not self.turn_table and true or false
 end
 
 function update(self, dt)
@@ -42,13 +46,17 @@ function update(self, dt)
 		set_camera(self)
 	end
 
-	if not self.touch_down then
-		--	self.angle_y = self.angle_y - (5 * dt) * 0.1
+	if not self.touch_down and self.turn_table then
+		self.angle_y = self.angle_y - (5 * dt) * 0.1
 		set_camera(self)
 	end
 end
 
 function on_input(self, action_id, action)
+	if action_id == hash("TURN_TABLE") and action.pressed then
+		toogle_auto_turn(self)
+	end
+
 	if const.is_gui_updating == true then
 		return
 	end

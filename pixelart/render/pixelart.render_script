@@ -226,7 +226,7 @@ function update(self)
     -- *******************************
     -- PIXELART RENDER
     -- *******************************
-    pixelart_render.update(self, state, predicates)
+    pixelart_render.update(self, state)
     -- *******************************
 
     render.draw_debug3d()

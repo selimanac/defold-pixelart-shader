@@ -7,6 +7,8 @@ function init(self)
 	profiler.enable_ui(false)
 	profiler.set_ui_view_mode(profiler.VIEW_MODE_MINIMIZED)
 
+	local color_green = vmath.vector4(0, 1, 0, 1)
+
 	manager.init()
 end
 

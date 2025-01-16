@@ -11,3 +11,4 @@ builtins
 .clang-format
 *.sublime-project
 *.sublime-workspace
+/.editor_settings

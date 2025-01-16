@@ -1,40 +1,15 @@
-local models = require("scripts.models")
-
-local w = sys.get_config_number("display.width")
-local h = sys.get_config_number("display.height")
-
-local function set_resolution(pixel_size)
-	local res = { w = w / pixel_size, h = h / pixel_size }
-	local result = vmath.vector4(res.w, res.h, 1 / res.w, 1 / res.h)
-
-	go.set('/post_process#pixelate_pass', 'resolution', result)
-	go.set('/post_process#render_pixelated_pass', 'resolution', result)
-end
+local manager = require("scripts.manager")
 
 function init(self)
+	msg.post("@render:", "use_camera_projection")
+	msg.post("@render:", "clear_color", { color = vmath.vector4(198 / 255, 189 / 255, 22 / 255, 0) })
+
 	profiler.enable_ui(false)
-	msg.post("@render:", "clear_color", { color = vmath.vector4(0 / 255, 0 / 255, 0 / 255, 0) })
+	profiler.set_ui_view_mode(profiler.VIEW_MODE_MINIMIZED)
 
-	models.init()
-	--	default constants
-	local normal_edge_coefficient = vmath.vector4(0.05)
-	local depth_edge_coefficient = vmath.vector4(0.1)
-	local pixel_size = 3
-
-	-- set default constants
-	set_resolution(pixel_size)
-	go.set('/post_process#render_pixelated_pass', 'normal_edge_coefficient', normal_edge_coefficient)
-	go.set('/post_process#render_pixelated_pass', 'depth_edge_coefficient', depth_edge_coefficient)
-
-	msg.post('/gui#material_editor', models.msg_update_dafault_values)
+	manager.init()
 end
 
 function on_message(self, message_id, message, sender)
-	if message_id == models.msg_update_pixel_constant then
-		if message.constant_name == 'pixel_size' then
-			set_resolution(message.constant_value.x)
-		else
-			go.set('/post_process#render_pixelated_pass', message.constant_name, message.constant_value)
-		end
-	end
+	manager.message(self, message_id, message, sender)
 end

@@ -1,6 +1,6 @@
 [bootstrap]
 main_collection = /main/main.collectionc
-render = /orthographic/render/orthographic.renderc
+render = /pixelart/render/pixelart.renderc
 
 [script]
 shared_state = 1
@@ -15,14 +15,15 @@ input_method = HiddenInputField
 [project]
 title = defold-pixelart
 
-[native_extension]
-app_manifest = /manifest/vulkan.appmanifest
-
 [graphics]
-default_texture_min_filter = linear
-default_texture_mag_filter = linear
+default_texture_min_filter = nearest
+default_texture_mag_filter = nearest
+opengl_version_hint = 0
 
 [input]
 repeat_delay = 0.0
 repeat_interval = 0.0
+
+[native_extension]
+app_manifest = /manifest/vulkan.appmanifest
 

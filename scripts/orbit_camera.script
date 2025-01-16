@@ -1,15 +1,16 @@
+-- https://github.com/abadonna/defold-orbit-camera
+
 go.property("target", hash("/camera_orbit_target"))
 go.property("distance", 50)
 go.property("distance_min", 20)
 go.property("distance_max", 100)
 go.property("wheel_speed", 50)
-go.property("angle_x", -0.2)
-go.property("angle_y", 0.0)
-go.property("angle_min", -0.2)
-go.property("angle_max", -0.2)
+go.property("angle_x", -30)
+go.property("angle_y", 45)
+go.property("angle_min", -30)
+go.property("angle_max", 45)
 
-
-local models = require("scripts.models")
+local const = require("scripts.const")
 
 local function set_camera(self)
 	self.center = self.target ~= hash("") and go.get_world_position(self.target) or vmath.vector3(0)
@@ -27,6 +28,12 @@ function init(self)
 
 	self.touch_down = false
 
+	self.angle_x = math.rad(self.angle_x)
+	self.angle_y = math.rad(self.angle_y)
+
+	self.angle_min = math.rad(self.angle_min)
+	self.angle_max = math.rad(self.angle_max)
+
 	set_camera(self)
 end
 
@@ -34,10 +41,15 @@ function update(self, dt)
 	if self.target ~= hash("") and self.center ~= go.get_world_position(self.target) then
 		set_camera(self)
 	end
+
+	if not self.touch_down then
+		self.angle_y = self.angle_y - (5 * dt) * 0.1
+		set_camera(self)
+	end
 end
 
 function on_input(self, action_id, action)
-	if models.is_updating == true then
+	if const.is_gui_updating == true then
 		return
 	end
 	if action_id == hash("touch") then

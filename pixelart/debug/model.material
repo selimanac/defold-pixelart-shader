@@ -1,8 +1,11 @@
-name: "pixelart_model"
+name: "model"
 tags: "pixelart_model"
-vertex_program: "/pixelart/materials/pixelart_model.vp"
-fragment_program: "/pixelart/materials/pixelart_model.fp"
-vertex_space: VERTEX_SPACE_LOCAL
+vertex_program: "/builtins/materials/model.vp"
+fragment_program: "/builtins/materials/model.fp"
+vertex_constants {
+  name: "mtx_worldview"
+  type: CONSTANT_TYPE_WORLDVIEW
+}
 vertex_constants {
   name: "mtx_view"
   type: CONSTANT_TYPE_VIEW
@@ -10,6 +13,10 @@ vertex_constants {
 vertex_constants {
   name: "mtx_proj"
   type: CONSTANT_TYPE_PROJECTION
+}
+vertex_constants {
+  name: "mtx_normal"
+  type: CONSTANT_TYPE_NORMAL
 }
 vertex_constants {
   name: "light"

@@ -2,5 +2,5 @@ mesh: "/builtins/assets/meshes/quad_2x2.dae"
 name: "pixelate_pass"
 materials {
   name: "default"
-  material: "/pixelart/materials/post-proccess/pixelate_pass.material"
+  material: "/pixelart/materials/pixelart/post-proccess/pixelate_pass.material"
 }

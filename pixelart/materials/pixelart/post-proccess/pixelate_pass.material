@@ -1,7 +1,7 @@
 name: "Pixelate Pass"
 tags: "pixelate_pass"
-vertex_program: "/pixelart/materials/post-proccess/pixelate_pass.vp"
-fragment_program: "/pixelart/materials/post-proccess/pixelate_pass.fp"
+vertex_program: "/pixelart/materials/pixelart/post-proccess/pixelate_pass.vp"
+fragment_program: "/pixelart/materials/pixelart/post-proccess/pixelate_pass.fp"
 vertex_space: VERTEX_SPACE_LOCAL
 vertex_constants {
   name: "mtx_worldview"

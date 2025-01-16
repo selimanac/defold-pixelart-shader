@@ -12,3 +12,4 @@ builtins
 *.sublime-project
 *.sublime-workspace
 /.editor_settings
+build_config.json

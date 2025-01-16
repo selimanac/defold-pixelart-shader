@@ -1,7 +1,7 @@
 name: "Pixelart Unlit Model Material  - Local Vertex Space"
 tags: "pixelart_model"
-vertex_program: "/pixelart/materials/model/pixelart_model_unlit.vp"
-fragment_program: "/pixelart/materials/model/pixelart_model_unlit.fp"
+vertex_program: "/pixelart/materials/pixelart/model/pixelart_model_unlit.vp"
+fragment_program: "/pixelart/materials/pixelart/model/pixelart_model_unlit.fp"
 vertex_space: VERTEX_SPACE_LOCAL
 vertex_constants {
   name: "mtx_view"

@@ -1,46 +1,44 @@
-local const                     = require("scripts.const")
+local const              = require("scripts.const")
 
-local manager                   = {}
-local light_position            = vmath.vector3()
-local light_target              = vmath.vector3()
-local proj_w                    = 12
-local proj_h                    = 12
-local camera_zoom               = 0
-local VECTOR_UP                 = vmath.vector3(0, 1, 0)
-manager.ortho_camera_projection = vmath.matrix4()
-manager.ortho_camera_view       = vmath.matrix4()
-manager.light_projection        = vmath.matrix4()
-manager.light_transform         = vmath.matrix4()
-manager.bias_matrix             = vmath.matrix4()
-manager.bias_matrix.c0          = vmath.vector4(0.5, 0.0, 0.0, 0.0)
-manager.bias_matrix.c1          = vmath.vector4(0.0, 0.5, 0.0, 0.0)
-manager.bias_matrix.c2          = vmath.vector4(0.0, 0.0, 0.5, 0.0)
-manager.bias_matrix.c3          = vmath.vector4(0.5, 0.5, 0.5, 1.0)
-manager.mtx_light               = vmath.matrix4()
-manager.inv_light               = vmath.matrix4()
-manager.light                   = vmath.vector4()
+local manager            = {}
 
-local function set_inverted_light()
-	manager.inv_light = vmath.inv(manager.light_transform)
-	manager.light.x   = manager.inv_light.m03
-	manager.light.y   = manager.inv_light.m13
-	manager.light.z   = manager.inv_light.m23
-	manager.light.w   = 1
+local camera_zoom        = 0
+
+-- Lights
+local light_position     = vmath.vector3()
+local light_target       = vmath.vector3()
+local VECTOR_UP          = vmath.vector3(0, 1, 0)
+local inv_light          = vmath.matrix4()
+manager.light_projection = vmath.matrix4()
+manager.light_transform  = vmath.matrix4()
+manager.mtx_light        = vmath.matrix4()
+manager.light            = vmath.vector4()
+
+-- invert light
+local function set_light_invert()
+	inv_light       = vmath.inv(manager.light_transform)
+	manager.light.x = inv_light.m03
+	manager.light.y = inv_light.m13
+	manager.light.z = inv_light.m23
+	manager.light.w = 1
 end
 
-local function set_bias()
-	manager.mtx_light = manager.bias_matrix * manager.light_projection * manager.light_transform
+-- set light matrix
+local function set_light_matrix()
+	manager.mtx_light = const.bias_matrix * manager.light_projection * manager.light_transform
 end
 
-local function set_projection()
-	manager.light_projection = vmath.matrix4_orthographic(-proj_w, proj_w, -proj_h, proj_h, -20, 20)
+-- set light projection
+local function set_light_projection()
+	manager.light_projection = vmath.matrix4_orthographic(-const.LIGHT_PROJ.WIDTH, const.LIGHT_PROJ.WIDTH, -const.LIGHT_PROJ.HEIGHT, const.LIGHT_PROJ.HEIGHT, const.LIGHT_PROJ.NEAR, const.LIGHT_PROJ.FAR)
 end
 
+-- set light trasform
 local function set_light_transform()
 	manager.light_transform = vmath.matrix4_look_at(light_position, light_target, VECTOR_UP)
 end
 
-
+-- set pixelart resolution
 local function set_resolution(pixel_size)
 	local res = { w = const.DISPLAY_WIDTH / pixel_size, h = const.DISPLAY_HEIGHT / pixel_size }
 	local result = vmath.vector4(res.w, res.h, 1 / res.w, 1 / res.h)
@@ -68,20 +66,20 @@ function manager.init()
 		go.set(v, 'light', vmath.vector4(light_position.x, light_position.y, light_position.z, 0))
 	end
 
-	-- Set Default Values
+	-- Set default pixelart Values
 	set_resolution(const.PIXEL.pixel_size.x)
 	go.set(const.POST_PROCESS.RENDER, 'normal_edge_coefficient', const.PIXEL.normal_edge_coefficient)
 	go.set(const.POST_PROCESS.RENDER, 'depth_edge_coefficient', const.PIXEL.depth_edge_coefficient)
 
-	camera_zoom                     = go.get(const.camera_id, "orthographic_zoom")
-	manager.ortho_camera_projection = camera.get_projection(const.camera_id)
-	manager.ortho_camera_view       = camera.get_view(const.camera_id)
+	camera_zoom = go.get(const.camera_id, "orthographic_zoom")
 
+	-- Setup light
 	set_light_transform()
-	set_projection()
-	set_bias()
-	set_inverted_light()
+	set_light_projection()
+	set_light_matrix()
+	set_light_invert()
 
+	-- Add listener for zoom
 	window.set_listener(window_resized)
 end
 

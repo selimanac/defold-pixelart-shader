@@ -3,22 +3,25 @@
 in highp vec4 position;
 in mediump vec2 texcoord0;
 in mediump vec3 normal;
+in mediump mat4 mtx_world;
+in mediump mat4 mtx_normal;
 
 uniform vx_uniforms
 {
-    mediump mat4 mtx_worldview;
     mediump mat4 mtx_view;
     mediump mat4 mtx_proj;
-    mediump mat4 mtx_normal;
+    mediump vec4 light;
 };
 
 out highp vec4 var_position;
 out mediump vec3 var_normal;
 out mediump vec2 var_texcoord0;
+out mediump vec4 var_light;
 
 void main()
 {
-    vec4 p = mtx_worldview * vec4(position.xyz, 1.0);
+    vec4 p = mtx_view * mtx_world * vec4(position.xyz, 1.0);
+    var_light = mtx_view * vec4(light.xyz, 1.0);
     var_position = p;
     var_texcoord0 = texcoord0;
     var_normal = normalize((mtx_normal * vec4(normal, 0.0)).xyz);

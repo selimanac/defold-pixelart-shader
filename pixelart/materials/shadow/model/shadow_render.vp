@@ -9,7 +9,6 @@ in mediump mat4 mtx_normal;
 
 uniform vx_uniforms
 {
-
     mediump mat4 mtx_view;
     mediump mat4 mtx_proj;
 

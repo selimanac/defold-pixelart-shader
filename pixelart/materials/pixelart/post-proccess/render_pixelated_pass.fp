@@ -66,6 +66,24 @@ float normalEdgeIndicator()
     return step(0.1, indicator);
 }
 
+/*
+float lum(vec4 color)
+{
+    vec4 weights = vec4(.2126, .7152, .0722, .0);
+    return dot(color, weights);
+}
+
+float smoothSign(float x, float radius)
+{
+    return smoothstep(-radius, radius, x) * 2.0 - 1.0;
+}
+
+float rgba_to_float(vec4 rgba)
+{
+    return dot(rgba, vec4(1.0, 1.0 / 255.0, 1.0 / 65025.0, 1.0 / 16581375.0));
+}
+ */
+
 void main()
 {
     vec4 texel = texture(diffuse_texture, var_texcoord0.xy);
@@ -73,15 +91,17 @@ void main()
     float normalEdgeCoefficient = normal_edge_coefficient.x; // 0.0 - 2.0
     float depthEdgeCoefficient = depth_edge_coefficient.x;   // 0.0 - 1.0
 
-    /*   float tLum = lum(texel);
-      float normalEdgeCoefficient = (smoothSign(tLum - .3, .1) + .7) * .25;
-      float depthEdgeCoefficient = (smoothSign(tLum - .3, .1) + .7) * .3; */
+    /*
+        // surface
+        float tLum = lum(texel);
+        float normalEdgeCoefficient = (smoothSign(tLum - .3, .1) + .7) * .25;
+        float depthEdgeCoefficient = (smoothSign(tLum - .3, .1) + .7) * .3;
+     */
 
     float dei = depthEdgeIndicator();
     float nei = normalEdgeIndicator();
 
-    float coefficient = dei > 0.0 ? (1.0 - depthEdgeCoefficient * dei)
-                                  : (1.0 + normalEdgeCoefficient * nei);
+    float coefficient = dei > 0.0 ? (1.0 - depthEdgeCoefficient * dei) : (1.0 + normalEdgeCoefficient * nei);
 
     color_out = texel * coefficient;
 }

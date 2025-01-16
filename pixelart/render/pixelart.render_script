@@ -199,6 +199,7 @@ function init(self)
     -- PIXELART INIT
     -- *******************************
     pixelart_render.init(self)
+    -- *******************************
 end
 
 function update(self)
@@ -217,28 +218,17 @@ function update(self)
     render.set_stencil_mask(0xff)
     render.clear(state.clear_buffers)
 
-    -- setup camera view and projection
-    --
-    local draw_options_world = set_camera_world(state)
-
     render.set_viewport(0, 0, state.window_width, state.window_height)
 
     -- set states used for all the world predicates
     render.set_blend_func(graphics.BLEND_FACTOR_SRC_ALPHA, graphics.BLEND_FACTOR_ONE_MINUS_SRC_ALPHA)
-    render.enable_state(graphics.STATE_DEPTH_TEST)
+
 
     -- *******************************
     -- PIXELART RENDER
     -- *******************************
     pixelart_render.update(self, state, predicates)
-
-
-    -- render the other components: sprites, tilemaps, particles etc
-    --
-    render.enable_state(graphics.STATE_BLEND)
-    render.draw(predicates.tile, draw_options_world)
-    render.draw(predicates.particle, draw_options_world)
-    render.disable_state(graphics.STATE_DEPTH_TEST)
+    -- *******************************
 
     render.draw_debug3d()
 
@@ -246,6 +236,7 @@ function update(self)
 
     -- render GUI
     --
+    render.enable_state(graphics.STATE_BLEND)
     local camera_gui = state.cameras.camera_gui
     render.set_view(camera_gui.view)
     render.set_projection(camera_gui.proj)

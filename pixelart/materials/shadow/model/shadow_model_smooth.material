@@ -1,7 +1,7 @@
-name: "shadow_render"
+name: "Soft Shadow Model Material"
 tags: "shadow_render"
-vertex_program: "/pixelart/materials/shadow/shadow_render.vp"
-fragment_program: "/pixelart/materials/shadow/shadow_smooth_render.fp"
+vertex_program: "/pixelart/materials/shadow/model/shadow_render.vp"
+fragment_program: "/pixelart/materials/shadow/model/shadow_smooth_render.fp"
 vertex_space: VERTEX_SPACE_LOCAL
 vertex_constants {
   name: "mtx_view"

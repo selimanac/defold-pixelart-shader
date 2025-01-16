@@ -1,5 +1,5 @@
 script: "/pixelart/render/pixelart.render_script"
 render_resources {
   name: "shadow_pass"
-  path: "/pixelart/materials/shadow/shadow_pass.material"
+  path: "/pixelart/materials/shadow/post-process/shadow_pass.material"
 }

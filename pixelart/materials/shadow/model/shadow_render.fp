@@ -2,7 +2,6 @@
 
 in highp vec4 var_position;
 in highp vec4 var_position_world;
-
 in mediump vec3 var_normal;
 in mediump vec2 var_texcoord0;
 in mediump vec4 var_texcoord0_shadow;
@@ -19,8 +18,7 @@ float rgba_to_float(vec4 rgba)
 
 float get_visibility(vec3 depth_data)
 {
-    float depth =
-        rgba_to_float(texture(shadow_render_depth_texture, depth_data.st));
+    float depth = rgba_to_float(texture(shadow_render_depth_texture, depth_data.st));
 
     const float depth_bias = 0.00002;
 
@@ -29,7 +27,7 @@ float get_visibility(vec3 depth_data)
     // precision issue.
     if (depth < depth_data.z - depth_bias)
     {
-        return 0.7;
+        return 0.7; // Shadow Alpha amount
     }
 
     return 1.0;

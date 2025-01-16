@@ -29,19 +29,16 @@ float shadow_calculation(vec4 depth_data)
     // The 'depth_bias' value is per-scene dependant and must be tweaked
     // accordingly. It is needed to avoid shadow acne, which is basically a
     // precision issue.
-
     float depth_bias = 0.00002;
     float shadow = 0.0;
-    float texel_size = 1.0 / 2048.0; // textureSize(tex1, 0);
+    float texel_size = 1.0 / 2048.0; // Texture size;
     for (int x = -1; x <= 1; ++x)
     {
         for (int y = -1; y <= 1; ++y)
         {
             vec2 uv = depth_data.st + vec2(x, y) * texel_size;
             vec4 rgba = texture(shadow_render_depth_texture, uv + rand(uv));
-            // vec4 rgba = texture2D(tex1, uv);
             float depth = rgba_to_float(rgba);
-            // float depth = rgba.x;
             shadow += depth_data.z - depth_bias > depth ? 1.0 : 0.0;
         }
     }
@@ -67,7 +64,7 @@ void main()
     vec4 depth_proj = var_texcoord0_shadow / var_texcoord0_shadow.w;
     float shadow = shadow_calculation(depth_proj.xyzw);
 
-    vec3 shadow_color1 = vec3(0.3, 0.3, 0.3);
+    vec3 shadow_color1 = vec3(0.3, 0.3, 0.3); // Shadow color
     vec3 shadow_color = shadow_color1.xyz * shadow;
     fragColor = vec4(color.rgb * (1.0 - shadow_color), 1.0);
 }

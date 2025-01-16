@@ -2,8 +2,9 @@ local pixelart              = {}
 
 local DISPLAY_WIDTH         = sys.get_config_number("display.width")
 local DISPLAY_HEIGHT        = sys.get_config_number("display.height")
+pixelart.render_shadows     = true
 
----Default Pixelart shader contants
+---Default Pixel-art shader constants
 local settings              = {
 	pixel_size = vmath.vector4(3),
 	normal_edge_coefficient = vmath.vector4(0.035),
@@ -16,7 +17,7 @@ pixelart.POST_PROCESS       = {
 	RENDER = '/post_process#render_pixelated_pass'
 }
 
----Light orthographic projection settings. Values are per-scene dependant and must be tweaked accordingly.
+---Light orthographic projection settings. Values are per-scene dependent and must be tweaked accordingly.
 local light_proj            = {
 	width  = 12,
 	height = 12,
@@ -60,12 +61,12 @@ local function set_light_projection()
 	pixelart.light_projection = vmath.matrix4_orthographic(-light_proj.width, light_proj.width, -light_proj.height, light_proj.height, light_proj.near, light_proj.far)
 end
 
----Set light trasform
+---Set light transform
 local function set_light_transform()
 	pixelart.light_transform = vmath.matrix4_look_at(light_source_position, light_target_position, VECTOR_UP)
 end
 
----Set Pixelart resolution for post-processing shader
+---Set Pixel-art resolution for post-processing shader
 ---@param pixel_size number Pixel size
 function pixelart.set_resolution(pixel_size)
 	local res = { w = DISPLAY_WIDTH / pixel_size, h = DISPLAY_HEIGHT / pixel_size }
@@ -75,41 +76,50 @@ function pixelart.set_resolution(pixel_size)
 	go.set(pixelart.POST_PROCESS.RENDER, 'resolution', result)
 end
 
----Pixelart post-process initial setup
----@param pixel_settings table Table of pixelart postprocess settings
----@param light_proj_settings table Table of light/shadow postprocess settings
----@param light_source string Light source URL
----@param light_target string Light target URL
-function pixelart.init(pixel_settings, light_proj_settings, light_source, light_target)
+---Pixel-art post-process initial setup
+---@param pixel_settings table Table of pixel-art post-process settings
+---@param render_shadows? boolean Shadow post-process. Default is true
+---@param light_proj_settings? table Table of light/shadow post-process settings. Required if render_shadows is 'true'.
+---@param light_source? string Light source URL. Required if render_shadows is 'true'.
+---@param light_target? string Light target URL. Required if render_shadows is 'true'.
+function pixelart.init(pixel_settings, render_shadows, light_proj_settings, light_source, light_target)
 	assert(pixel_settings, "You must provide pixel_settings")
-	assert(light_proj_settings, "You must provide light_proj_settings")
-	assert(light_source, "You must provide light_source")
-	assert(light_source, "You must provide light_target")
 
-	-- Light source positions
-	light_source_position = go.get_position(light_source)
-	light_target_position = go.get_position(light_target)
+	if render_shadows ~= nil then
+		pixelart.render_shadows = render_shadows
+		if pixelart.render_shadows then
+			assert(light_proj_settings, "You must provide light_proj_settings")
+			assert(light_source, "You must provide light_source")
+			assert(light_source, "You must provide light_target")
 
-	light_proj.width = light_proj_settings.width
-	light_proj.height = light_proj_settings.height
-	light_proj.near = light_proj_settings.near
-	light_proj.far = light_proj_settings.far
+			-- Light source positions
+			light_source_position = go.get_position(light_source)
+			light_target_position = go.get_position(light_target)
+
+			light_proj.width = light_proj_settings.width
+			light_proj.height = light_proj_settings.height
+			light_proj.near = light_proj_settings.near
+			light_proj.far = light_proj_settings.far
+
+			-- Setup light
+			set_light_transform()
+			set_light_projection()
+			set_light_matrix()
+			set_light_invert()
+		end
+	elseif render_shadows == nil then
+		pixelart.render_shadows = false
+	end
 
 	-- Effect settings
 	settings.pixel_size = vmath.vector4(pixel_settings.pixel_size)
 	settings.normal_edge_coefficient = vmath.vector4(pixel_settings.normal_edge_coefficient)
 	settings.depth_edge_coefficient = vmath.vector4(pixel_settings.depth_edge_coefficient)
 
-	-- Set default pixelart values
+	-- Set default pixel-art values
 	pixelart.set_resolution(settings.pixel_size.x)
 	go.set(pixelart.POST_PROCESS.RENDER, 'normal_edge_coefficient', settings.normal_edge_coefficient)
 	go.set(pixelart.POST_PROCESS.RENDER, 'depth_edge_coefficient', settings.depth_edge_coefficient)
-
-	-- Setup light
-	set_light_transform()
-	set_light_projection()
-	set_light_matrix()
-	set_light_invert()
 end
 
 return pixelart

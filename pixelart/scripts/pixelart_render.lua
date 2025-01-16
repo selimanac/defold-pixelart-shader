@@ -70,37 +70,42 @@ function pixelart_render.init(self)
 end
 
 function pixelart_render.update(self)
+	render.enable_state(graphics.STATE_DEPTH_TEST)
+
+
 	---------------------------------------------------
 	-- resize render targets
 	render.set_render_target_size(self.pixelart_render_target, self.state.window_width, self.state.window_height)
 	render.set_render_target_size(self.pixelart_pixelate_render_target, self.state.window_width, self.state.window_height)
-	render.set_render_target_size(self.shadow_render_target, self.state.window_width, self.state.window_height)
 
-	---------------------------------------------------
-	-- lights
-	self.light_projection                     = pixelart.light_projection
-	self.light_transform                      = pixelart.light_transform
-	self.light_constant_buffer.light          = pixelart.light
-	self.light_constant_buffer.mtx_light_mvp0 = pixelart.mtx_light.c0
-	self.light_constant_buffer.mtx_light_mvp1 = pixelart.mtx_light.c1
-	self.light_constant_buffer.mtx_light_mvp2 = pixelart.mtx_light.c2
-	self.light_constant_buffer.mtx_light_mvp3 = pixelart.mtx_light.c3
 
-	render.enable_state(graphics.STATE_DEPTH_TEST)
+	if pixelart.render_shadows then
+		render.set_render_target_size(self.shadow_render_target, self.state.window_width, self.state.window_height)
 
-	---------------------------------------------------
-	--  shadow pass
-	render.set_view(self.light_transform)
-	render.set_projection(self.light_projection)
-	local frustum = self.light_projection * self.light_transform
+		---------------------------------------------------
+		-- lights
+		self.light_projection                     = pixelart.light_projection
+		self.light_transform                      = pixelart.light_transform
+		self.light_constant_buffer.light          = pixelart.light
+		self.light_constant_buffer.mtx_light_mvp0 = pixelart.mtx_light.c0
+		self.light_constant_buffer.mtx_light_mvp1 = pixelart.mtx_light.c1
+		self.light_constant_buffer.mtx_light_mvp2 = pixelart.mtx_light.c2
+		self.light_constant_buffer.mtx_light_mvp3 = pixelart.mtx_light.c3
 
-	render.enable_state(graphics.FACE_TYPE_FRONT)
-	render.set_render_target(self.shadow_render_target, { transient = { graphics.BUFFER_TYPE_DEPTH_BIT } })
-	render.clear(self.state.clear_buffers)
+		---------------------------------------------------
+		--  shadow pass
+		render.set_view(self.light_transform)
+		render.set_projection(self.light_projection)
+		local frustum = self.light_projection * self.light_transform
 
-	render.enable_material("shadow_pass")
-	render.draw(self.predicates.pixelart_model, { frustum = frustum })
-	render.disable_material()
+		render.enable_state(graphics.FACE_TYPE_FRONT)
+		render.set_render_target(self.shadow_render_target, { transient = { graphics.BUFFER_TYPE_DEPTH_BIT } })
+		render.clear(self.state.clear_buffers)
+
+		render.enable_material("shadow_pass")
+		render.draw(self.predicates.pixelart_model, { frustum = frustum })
+		render.disable_material()
+	end
 
 	---------------------------------------------------
 	-- depth
@@ -116,9 +121,11 @@ function pixelart_render.update(self)
 	render.draw(self.predicates.pixelart_model, { self.state.cameras.camera_world.options })
 
 	-- Shadow
-	render.enable_texture('shadow_render_depth_texture', self.shadow_render_target, graphics.BUFFER_TYPE_DEPTH_BIT)
-	render.draw(self.predicates.shadow_render, { frustum = frustum, constants = self.light_constant_buffer })
-	render.disable_texture('shadow_render_depth_texture')
+	if pixelart.render_shadows then
+		render.enable_texture('shadow_render_depth_texture', self.shadow_render_target, graphics.BUFFER_TYPE_DEPTH_BIT)
+		render.draw(self.predicates.shadow_render, { frustum = frustum, constants = self.light_constant_buffer })
+		render.disable_texture('shadow_render_depth_texture')
+	end
 
 	render.disable_state(graphics.STATE_CULL_FACE)
 	render.set_depth_mask(false)

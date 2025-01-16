@@ -16,7 +16,8 @@ end
 
 function manager.init()
 	-- Init pixelart post-process
-	pixelart.init(const.PIXEL_SETTINGS, const.LIGHT_PROJ_SETTINGS, '/light_source', '/light_target')
+	-- pixelart.init(const.PIXEL_SETTINGS)
+	pixelart.init(const.PIXEL_SETTINGS, true, const.LIGHT_PROJ_SETTINGS, '/light_source', '/light_target')
 
 	-- Let there be light for models
 	local light_source_position = go.get_position('/light_source')

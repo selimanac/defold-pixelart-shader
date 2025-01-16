@@ -72,12 +72,10 @@ end
 function pixelart_render.update(self)
 	render.enable_state(graphics.STATE_DEPTH_TEST)
 
-
 	---------------------------------------------------
 	-- resize render targets
 	render.set_render_target_size(self.pixelart_render_target, self.state.window_width, self.state.window_height)
 	render.set_render_target_size(self.pixelart_pixelate_render_target, self.state.window_width, self.state.window_height)
-
 
 	if pixelart.render_shadows then
 		render.set_render_target_size(self.shadow_render_target, self.state.window_width, self.state.window_height)

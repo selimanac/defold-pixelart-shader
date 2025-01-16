@@ -19,7 +19,6 @@ uniform vx_uniforms
 };
 
 out highp vec4 var_position;
-out highp vec4 var_position_world;
 
 out mediump vec3 var_normal;
 out mediump vec2 var_texcoord0;
@@ -34,7 +33,6 @@ void main()
 {
     vec4 p = mtx_view * mtx_world * vec4(position.xyz, 1.0);
     var_position = p;
-    var_position_world = mtx_world * vec4(position.xyz, 1.0);
     var_texcoord0 = texcoord0;
     var_texcoord0_shadow = get_shadow_mat() * mtx_world * vec4(position.xyz, 1.0);
     var_normal = normalize((mtx_normal * vec4(normal, 0.0)).xyz);

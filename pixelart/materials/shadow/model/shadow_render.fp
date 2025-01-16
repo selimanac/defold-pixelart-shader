@@ -1,7 +1,6 @@
 #version 330
 
 in highp vec4 var_position;
-in highp vec4 var_position_world;
 in mediump vec3 var_normal;
 in mediump vec2 var_texcoord0;
 in mediump vec4 var_texcoord0_shadow;

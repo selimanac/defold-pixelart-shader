@@ -1,7 +1,7 @@
 name: "main"
 instances {
   id: "post_process"
-  prototype: "/pixelart/post_process.go"
+  prototype: "/pixelart/pixelart_post_process.go"
 }
 instances {
   id: "camera"

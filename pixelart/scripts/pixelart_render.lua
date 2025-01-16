@@ -1,9 +1,8 @@
-local manager = require("scripts.manager")
-
+local pixelart        = require("pixelart.scripts.pixelart")
 
 local pixelart_render = {}
 
-function pixelart_render.init(self, create_predicates)
+function pixelart_render.init(self)
 	local w                                = render.get_width()
 	local h                                = render.get_height()
 
@@ -79,13 +78,13 @@ function pixelart_render.update(self, state, predicates)
 
 	---------------------------------------------------
 	-- lights
-	self.light_projection                     = manager.light_projection
-	self.light_transform                      = manager.light_transform
-	self.light_constant_buffer.light          = manager.light
-	self.light_constant_buffer.mtx_light_mvp0 = manager.mtx_light.c0
-	self.light_constant_buffer.mtx_light_mvp1 = manager.mtx_light.c1
-	self.light_constant_buffer.mtx_light_mvp2 = manager.mtx_light.c2
-	self.light_constant_buffer.mtx_light_mvp3 = manager.mtx_light.c3
+	self.light_projection                     = pixelart.light_projection
+	self.light_transform                      = pixelart.light_transform
+	self.light_constant_buffer.light          = pixelart.light
+	self.light_constant_buffer.mtx_light_mvp0 = pixelart.mtx_light.c0
+	self.light_constant_buffer.mtx_light_mvp1 = pixelart.mtx_light.c1
+	self.light_constant_buffer.mtx_light_mvp2 = pixelart.mtx_light.c2
+	self.light_constant_buffer.mtx_light_mvp3 = pixelart.mtx_light.c3
 
 	render.enable_state(graphics.STATE_DEPTH_TEST)
 

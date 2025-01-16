@@ -43,7 +43,7 @@ function update(self, dt)
 	end
 
 	if not self.touch_down then
-		self.angle_y = self.angle_y - (5 * dt) * 0.1
+		--	self.angle_y = self.angle_y - (5 * dt) * 0.1
 		set_camera(self)
 	end
 end

@@ -95,12 +95,13 @@ local function set_default_values(values)
 	for k, v in pairs(values) do
 		for i = 1, sliders_count do
 			local handle = slider_container[i]
+
 			if slider_container[i].constant_name == k then
 				local pos = 0
 				local slider = sliders[handle.constant_id][handle.constant_name]
 				if handle.slider_id == 1 then
-					pos = v.x
-					slider.value.x = v.x
+					pos = v
+					slider.value.x = v
 				elseif handle.slider_id == 2 then
 					pos = v.y
 					slider.value.y = v.y
@@ -111,7 +112,7 @@ local function set_default_values(values)
 
 				local value = 100 / slider.value_max
 
-				gui.set_text(handle.value_proxy, string.sub(pos, 1, 4))
+				gui.set_text(handle.value_proxy, string.sub(pos, 1, 5))
 				pos = pos * value
 
 				gui.set_position(handle.node_proxy, vmath.vector3(pos, handle.handler_position.y, handle.handler_position.z))
@@ -128,7 +129,7 @@ function init()
 
 	setup_components()
 
-	set_default_values(const.PIXEL)
+	set_default_values(const.PIXEL_SETTINGS)
 end
 
 local function set_constant(constant_name, constant_value, target)
@@ -144,6 +145,7 @@ local function start_drag(handle, action_x)
 		local slider = sliders[handle.constant_id][handle.constant_name]
 
 		local value = 100 / slider.value_max
+
 		local temp_value = target_x / value
 
 		gui.set_text(handle.value_proxy, temp_value)
@@ -159,7 +161,7 @@ local function start_drag(handle, action_x)
 	end
 end
 
-function on_input(self, action_id, action)
+function on_input(_, _, action)
 	for i = 1, sliders_count do
 		if action.released then
 			const.is_gui_updating = false

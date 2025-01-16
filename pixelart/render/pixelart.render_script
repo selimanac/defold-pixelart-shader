@@ -12,7 +12,7 @@
 -- CONDITIONS OF ANY KIND, either express or implied. See the License for the
 -- specific language governing permissions and limitations under the License.
 
-local pixelart_render = require("pixelart.render.pixelart_render")
+local pixelart_render = require("pixelart.scripts.pixelart_render")
 
 --
 -- message constants
@@ -222,7 +222,6 @@ function update(self)
 
     -- set states used for all the world predicates
     render.set_blend_func(graphics.BLEND_FACTOR_SRC_ALPHA, graphics.BLEND_FACTOR_ONE_MINUS_SRC_ALPHA)
-
 
     -- *******************************
     -- PIXELART RENDER

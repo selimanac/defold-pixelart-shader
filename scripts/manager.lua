@@ -15,28 +15,25 @@ local function window_resized(self, event, data)
 end
 
 function manager.init()
-	-- Init pixelart post-process
-	-- pixelart.init(const.PIXEL_SETTINGS)
-	pixelart.init(const.PIXEL_SETTINGS, true, const.LIGHT_PROJ_SETTINGS, '/light_source', '/light_target')
-
-	-- Let there be light for models
-	local light_source_position = go.get_position('/light_source')
-	for _, v in ipairs(const.MODELS) do
-		go.set(v, 'light', vmath.vector4(light_source_position.x, light_source_position.y, light_source_position.z, 0))
-	end
+	-- Init pixel-art post-process
+	-- pixelart.init(const.PIXEL_SETTINGS) --without shadows
+	pixelart.init(const.PIXEL_SETTINGS, const.LIGHT_SETTINGS, const.SHADOW_SETTINGS)
 
 	camera_zoom = go.get(const.CAMERA_ID, "orthographic_zoom")
 
-	-- Add listener for zoom
+	-- Window resize listener
 	window.set_listener(window_resized)
 end
 
 function manager.message(_, message_id, message, _)
 	-- Update from GUI
+
 	if message_id == const.MSG.UPDATE_PIXEL_SIZE then
 		pixelart.set_resolution(message.constant_value.x)
-	else
-		go.set(pixelart.POST_PROCESS.RENDER, message.constant_name, message.constant_value)
+	elseif message_id == const.MSG.UPDATE_DEPTH then
+		pixelart.set_depth_edge(message.constant_value)
+	elseif message_id == const.MSG.UPDATE_EDGE then
+		pixelart.set_normal_edge(message.constant_value)
 	end
 end
 

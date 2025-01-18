@@ -4,9 +4,17 @@ in highp vec4 var_position;
 in mediump vec3 var_normal;
 in mediump vec2 var_texcoord0;
 in mediump vec4 var_texcoord0_shadow;
+in mediump vec4 var_light;
 
 uniform sampler2D shadow_render_depth_texture;
 uniform sampler2D shadow_render_diffuse_texture;
+
+uniform fs_uniforms
+{
+    mediump vec4 diffuse_light;
+    mediump vec4 bias;
+    mediump vec4 shadow_opacity;
+};
 
 out vec4 fragColor;
 
@@ -27,9 +35,9 @@ float shadow_calculation(vec4 depth_data)
     // The 'depth_bias' value is per-scene dependant and must be tweaked
     // accordingly. It is needed to avoid shadow acne, which is basically a
     // precision issue.
-    float depth_bias = 0.00002;
+    float depth_bias = bias.x;
     float shadow = 0.0;
-    float texel_size = 1.0 / 2048.0; // Texture size;
+    float texel_size = 1.0 / 1024.0; // Texture size;
     for (int x = -1; x <= 1; ++x)
     {
         for (int y = -1; y <= 1; ++y)
@@ -62,7 +70,13 @@ void main()
     vec4 depth_proj = var_texcoord0_shadow / var_texcoord0_shadow.w;
     float shadow = shadow_calculation(depth_proj.xyzw);
 
-    vec3 shadow_color1 = vec3(0.3, 0.3, 0.3); // Shadow color
-    vec3 shadow_color = shadow_color1.xyz * shadow;
-    fragColor = vec4(color.rgb * (1.0 - shadow_color), 1.0);
+    // Diffuse light calculations
+    vec3 ambient_light = diffuse_light.xyz;
+    vec3 diff_light = vec3(normalize(var_light.xyz - var_position.xyz));
+    diff_light = max(dot(var_normal, diff_light), 0.0) + ambient_light;
+    diff_light = clamp(diff_light, 0.0, 1.0);
+
+    vec3 shadow_color = shadow_opacity.xyz * shadow;
+
+    fragColor = vec4(color.rgb * diff_light * (1.0 - shadow_color), 1.0);
 }

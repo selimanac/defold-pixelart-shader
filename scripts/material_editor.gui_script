@@ -29,7 +29,7 @@ local sliders          = {
 			components = 1,
 			component_labels = { 'Amount' },
 			nodes = {},
-			target = const.MSG.UPDATE_DEPTH_NORMAL
+			target = const.MSG.UPDATE_EDGE
 		},
 	},
 	[3] = {
@@ -41,7 +41,7 @@ local sliders          = {
 			components = 1,
 			component_labels = { 'Amount' },
 			nodes = {},
-			target = const.MSG.UPDATE_DEPTH_NORMAL
+			target = const.MSG.UPDATE_DEPTH
 		},
 	},
 }

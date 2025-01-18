@@ -16,13 +16,14 @@ uniform vx_uniforms
     mediump vec4 mtx_light_mvp1;
     mediump vec4 mtx_light_mvp2;
     mediump vec4 mtx_light_mvp3;
+    mediump vec4 light;
 };
 
 out highp vec4 var_position;
-
 out mediump vec3 var_normal;
 out mediump vec2 var_texcoord0;
 out mediump vec4 var_texcoord0_shadow;
+out mediump vec4 var_light;
 
 mat4 get_shadow_mat()
 {
@@ -32,6 +33,7 @@ mat4 get_shadow_mat()
 void main()
 {
     vec4 p = mtx_view * mtx_world * vec4(position.xyz, 1.0);
+    var_light = mtx_view * vec4(light.xyz, 1.0);
     var_position = p;
     var_texcoord0 = texcoord0;
     var_texcoord0_shadow = get_shadow_mat() * mtx_world * vec4(position.xyz, 1.0);

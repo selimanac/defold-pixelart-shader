@@ -1,4 +1,4 @@
-#version 330
+#version 140
 
 in mediump vec2 var_texcoord0;
 in mediump vec4 var_resolution;
@@ -11,8 +11,8 @@ uniform sampler2D depth_texture;
 
 uniform fs_uniforms
 {
-    lowp vec4 normal_edge_coefficient;
-    lowp vec4 depth_edge_coefficient;
+    mediump vec4 normal_edge_coefficient;
+    mediump vec4 depth_edge_coefficient;
 };
 
 float getDepth(int x, int y)

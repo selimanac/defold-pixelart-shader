@@ -175,7 +175,7 @@ local function reset_camera_world(state)
 end
 
 function init(self)
-    self.predicates = create_predicates("tile", "gui", "particle", "model", "debug_text")
+    self.predicates = create_predicates("tile", "gui", "particle", "debug_text")
 
     -- default is stretch projection. copy from builtins and change for different projection
     -- or send a message to the render script to change projection:
@@ -218,6 +218,7 @@ function update(self)
     render.set_stencil_mask(0xff)
     render.clear(state.clear_buffers)
 
+    set_camera_world(state)
     render.set_viewport(0, 0, state.window_width, state.window_height)
 
     -- set states used for all the world predicates

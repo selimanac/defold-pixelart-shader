@@ -16,16 +16,13 @@ input_method = HiddenInputField
 title = defold-pixelart-shader
 
 [graphics]
-default_texture_min_filter = nearest
-default_texture_mag_filter = nearest
+default_texture_min_filter = linear
+default_texture_mag_filter = linear
 opengl_version_hint = 0
 
 [input]
 repeat_delay = 0.0
 repeat_interval = 0.0
-
-[native_extension]
-app_manifest = /manifest/vulkan.appmanifest
 
 [library]
 include_dirs = pixelart

@@ -23,7 +23,7 @@ This post-processing effect cannot make every 3D model perfect for pixel art. Do
 
 ## Setup
 
--  [optional] Add [pixelart.render](/pixelart/render/pixelart.render) to game.project -> Bootstrap -> Render. You may also use your own solution.
+-  [optional] Add [pixelart.render](/pixelart/render/pixelart.render) to game.project -> Bootstrap -> Render section. You may also use your own solution.  Refer to [pixelart_render](#scriptspixelart_renderlua)
 -  [optional] Add camera to your collection. 
 - Add [pixelart_post_process.go](/pixelart/pixelart_post_process.go) gameobject file from library to your collection
 - Add empty gameobject with ID `light_source` and change its position to desire location
@@ -96,17 +96,24 @@ Set light source and target
 * `light_source` (string)  Light source gameobject URL
 * `light_target` (string)  Light target gameobject URL
 
+---
+
 ### scripts/pixelart_render.lua
+
+Use this file to render  pixel-art post-process.
 
 #### pixelart_render.init(`self`)
 Must be called on render_script's `init(self)` function
 
-#### pixelart_render.update(`self`, `camera_frustum`, `view`, `proj`)
+#### pixelart_render.update(`self`, `camera_frustum`, `view`, `proj`, `window_width`, `window_height`, `clear_buffers`)
 Must be called on render_script's `update(self)` function
 
 * `camera_frustum` (matrix4)  Camera frustum
 * `view` (matrix4)  Camera view
-* `proj` (matrix4)  Camera proj
+* `proj` (matrix4)  Camera projection
+* `window_width` (number)  Window width
+* `window_height` (number)  Window height
+* `clear_buffers` (table)  Clear buffer table
 
 ## Materials
 

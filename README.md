@@ -23,6 +23,13 @@ This post-processing effect cannot make every 3D model perfect for pixel art. Do
 
 ## Setup
 
+-  [optional]Add pixelart.render_script to game.project -> Bootstrap -> Render. You may also use your own solution.
+-  [optional] Add camera to your collection. You may also use your own solution.
+- Add pixelart_post_process.go gameobject file from library to your collection
+- Add empty gameobject with ID `light_source` and change its position to desire location
+- Add empty gameobject with ID `light_target` and change its position to desire location
+- Use pixelart.init() to initialize 
+
 ## API
 
 There are two lua modules to help you to setup

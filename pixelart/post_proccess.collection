@@ -1,6 +1,0 @@
-name: "post_proccess"
-instances {
-  id: "pixelart_post_process"
-  prototype: "/pixelart/pixelart_post_process.go"
-}
-scale_along_z: 0

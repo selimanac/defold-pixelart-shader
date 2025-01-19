@@ -55,13 +55,13 @@ embedded_instances {
   "  id: \"main\"\n"
   "  component: \"/scripts/main.script\"\n"
   "}\n"
-  ""
-}
-embedded_instances {
-  id: "gui"
-  data: "components {\n"
-  "  id: \"material_editor\"\n"
-  "  component: \"/main/material_editor.gui\"\n"
+  "components {\n"
+  "  id: \"editor\"\n"
+  "  component: \"/scripts/editor.script\"\n"
+  "}\n"
+  "components {\n"
+  "  id: \"imgui\"\n"
+  "  component: \"/imgui/imgui.script\"\n"
   "}\n"
   ""
 }
@@ -69,8 +69,6 @@ embedded_instances {
   id: "models"
   children: "box"
   children: "box_unlit"
-  children: "dance"
-  children: "dance_unlit"
   children: "fox"
   children: "fox_unlit"
   children: "house"
@@ -453,79 +451,6 @@ embedded_instances {
   ""
   position {
     x: 5.0
-  }
-}
-embedded_instances {
-  id: "dance"
-  data: "embedded_components {\n"
-  "  id: \"model\"\n"
-  "  type: \"model\"\n"
-  "  data: \"mesh: \\\"/assests/model/dance.glb\\\"\\n"
-  "skeleton: \\\"/assests/model/dance.glb\\\"\\n"
-  "animations: \\\"/assests/model/dance.glb\\\"\\n"
-  "default_animation: \\\"Armature|mixamo.com|Layer0\\\"\\n"
-  "name: \\\"{{NAME}}\\\"\\n"
-  "materials {\\n"
-  "  name: \\\"Material.001\\\"\\n"
-  "  material: \\\"/pixelart/materials/pixelart/model/pixelart_model_world.material\\\"\\n"
-  "  textures {\\n"
-  "    sampler: \\\"tex0\\\"\\n"
-  "    texture: \\\"/assests/textures/texture_backed.png\\\"\\n"
-  "  }\\n"
-  "}\\n"
-  "\"\n"
-  "}\n"
-  ""
-  position {
-    x: -4.0
-    z: 6.0
-  }
-  rotation {
-    x: 0.70710677
-    w: 0.70710677
-  }
-  scale3 {
-    x: 0.002
-    y: 0.002
-    z: 0.002
-  }
-}
-embedded_instances {
-  id: "dance_unlit"
-  data: "embedded_components {\n"
-  "  id: \"model\"\n"
-  "  type: \"model\"\n"
-  "  data: \"mesh: \\\"/assests/model/dance.glb\\\"\\n"
-  "skeleton: \\\"/assests/model/dance.glb\\\"\\n"
-  "animations: \\\"/assests/model/dance.glb\\\"\\n"
-  "default_animation: \\\"Armature|mixamo.com|Layer0\\\"\\n"
-  "name: \\\"{{NAME}}\\\"\\n"
-  "materials {\\n"
-  "  name: \\\"Material.001\\\"\\n"
-  "  material: \\\"/pixelart/materials/pixelart/model/pixelart_model_world_unlit.material\\\"\\n"
-  "  textures {\\n"
-  "    sampler: \\\"tex0\\\"\\n"
-  "    texture: \\\"/assests/textures/texture_backed.png\\\"\\n"
-  "  }\\n"
-  "}\\n"
-  "\"\n"
-  "  position {\n"
-  "    x: 1880.0\n"
-  "  }\n"
-  "}\n"
-  ""
-  position {
-    x: -2.0
-    z: 6.0
-  }
-  rotation {
-    x: 0.70710677
-    w: 0.70710677
-  }
-  scale3 {
-    x: 0.002
-    y: 0.002
-    z: 0.002
   }
 }
 embedded_instances {

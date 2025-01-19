@@ -1,0 +1,52 @@
+local pixelart = require("pixelart.scripts.pixelart")
+
+local changed, value, x, y, z
+
+function init(self)
+	imgui.set_ini_filename("pixelart_editor_imgui.ini")
+end
+
+function update(self, dt)
+	imgui.begin_window("Settings", nil, imgui.WINDOWFLAGS_NONE)
+
+
+	changed, value = imgui.input_int("Pixel Size", pixelart.settings.pixel_size.x)
+	if changed then
+		pixelart.set_pixel_size(value)
+		pixelart.set_resolution(value)
+	end
+
+	changed, value = imgui.input_double("Normal_Edge", pixelart.settings.normal_edge_coefficient.x, 0.005, 1.0, 3)
+	if changed then
+		pixelart.set_normal_edge(value)
+	end
+
+
+	changed, value = imgui.input_float("Depth Edge", pixelart.settings.depth_edge_coefficient.x, 0.01, 1.0, 2)
+	if changed then
+		pixelart.set_depth_edge(value)
+	end
+
+	changed, value = imgui.input_double("Shadow Bias", pixelart.light_shadow_settings.depth_bias.x, 0.00005, 1.0, 5)
+	if changed then
+		pixelart.set_depth_bias(value)
+	end
+
+	changed, value = imgui.input_float("Shadow Opacity", pixelart.light_shadow_settings.shadow_opacity.x, 0.1, 1.0, 1)
+	if changed then
+		pixelart.set_shadow_opacity(value)
+	end
+
+	local diffuse_light_color = vmath.vector3()
+	changed, x, y, z = imgui.input_float3("Diffuse Color", pixelart.ambient_light.x, pixelart.ambient_light.y, pixelart.ambient_light.z)
+	if changed then
+		diffuse_light_color.x = x
+		diffuse_light_color.y = y
+		diffuse_light_color.z = z
+		pixelart.set_ambient_light(diffuse_light_color)
+	end
+
+	imgui.separator()
+	imgui.text("Left click and drag the mouse to rotate  the camera\nPress -SPACE- to toggle auto rotate")
+	imgui.end_window()
+end

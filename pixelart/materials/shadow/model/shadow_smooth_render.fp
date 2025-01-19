@@ -37,7 +37,7 @@ float shadow_calculation(vec4 depth_data)
     // precision issue.
     float depth_bias = bias.x;
     float shadow = 0.0;
-    float texel_size = 1.0 / 1024.0; // Texture size;
+    float texel_size = 1.0 / 2048.0; // Texture size;
     for (int x = -1; x <= 1; ++x)
     {
         for (int y = -1; y <= 1; ++y)

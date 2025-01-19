@@ -34,7 +34,7 @@ float get_visibility(vec3 depth_data)
     // precision issue.
     if (depth < depth_data.z - depth_bias)
     {
-        return 1.0 - shadow_opacity.x; // Shadow Alpha amount
+        return (1.0 - shadow_opacity.x); // Shadow Alpha amount
     }
 
     return 1.0;

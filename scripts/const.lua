@@ -6,8 +6,8 @@ const.DISPLAY_HEIGHT  = sys.get_config_number("display.height")
 
 --  Pixel-art post process settings
 const.PIXEL_SETTINGS  = {
-	pixel_size = 3,              --Pixel size
-	normal_edge_coefficient = 0.03, -- Normal edge for sharpening edges
+	pixel_size = 3,               --Pixel size
+	normal_edge_coefficient = 0.035, -- Normal edge for sharpening edges
 	depth_edge_coefficient = 0.3, --Depth edge for outline
 }
 
@@ -18,7 +18,7 @@ const.SHADOW_SETTINGS = {
 	projection_height = 14,
 	projection_near   = -80,
 	projection_far    = 80,
-	depth_bias        = 0.002, -- Usually it is 0.00002
+	depth_bias        = 0.002, -- Usually it is 0.00002 for perspective. 0.002 for ortho projection
 	shadow_opacity    = 0.4 -- Shadow opacity
 }
 

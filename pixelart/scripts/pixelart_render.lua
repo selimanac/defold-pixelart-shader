@@ -3,11 +3,11 @@ local pixelart        = require("pixelart.scripts.pixelart")
 local pixelart_render = {}
 
 function pixelart_render.init(self)
-	local w                                                 = render.get_width()
-	local h                                                 = render.get_height()
+	local w            = render.get_width()
+	local h            = render.get_height()
 
 	-- render target buffer parameters
-	local color_params                                      = {
+	local color_params = {
 		format = graphics.TEXTURE_FORMAT_RGBA,
 		width = w,
 		height = h,
@@ -17,7 +17,7 @@ function pixelart_render.init(self)
 		v_wrap = graphics.TEXTURE_WRAP_CLAMP_TO_EDGE
 	}
 
-	local depth_params                                      = {
+	local depth_params = {
 		format     = graphics.TEXTURE_FORMAT_DEPTH,
 		width      = w,
 		height     = h,
@@ -27,6 +27,8 @@ function pixelart_render.init(self)
 		v_wrap     = graphics.TEXTURE_WRAP_CLAMP_TO_EDGE,
 		flags      = render.TEXTURE_BIT -- this will create the depth buffer as a texture
 	}
+
+
 
 	-- render target buffers
 	self.pixelart_render_target                             = render.render_target(
@@ -106,15 +108,15 @@ function pixelart_render.update(self)
 		---------------------------------------------------
 		render.set_view(self.light_transform)
 		render.set_projection(self.light_projection)
-		local frustum = self.light_projection * self.light_transform
+		--	local light_frustum = self.light_projection * self.light_transform
 
 		render.enable_state(graphics.FACE_TYPE_FRONT)
 		render.set_render_target(self.shadow_render_target, { transient = { graphics.BUFFER_TYPE_DEPTH_BIT } })
 		render.clear(self.state.clear_buffers)
 
 		render.enable_material("shadow_pass")
-		render.draw(self.pixelart_predicates.pixelart_model, { frustum = frustum })
-		render.draw(self.pixelart_predicates.shadow_render, { frustum = frustum })
+		render.draw(self.pixelart_predicates.pixelart_model, { frustum = self.state.cameras.camera_world.options.frustum })
+		render.draw(self.pixelart_predicates.shadow_render, { frustum = self.state.cameras.camera_world.options.frustum })
 
 		render.disable_material()
 	end
@@ -122,6 +124,7 @@ function pixelart_render.update(self)
 	---------------------------------------------------
 	-- depth pass
 	---------------------------------------------------
+
 	render.set_view(self.state.cameras.camera_world.view)
 	render.set_projection(self.state.cameras.camera_world.proj)
 

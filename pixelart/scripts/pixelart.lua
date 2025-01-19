@@ -26,7 +26,7 @@ pixelart.light_shadow_settings = {
 	projection_height = 12,
 	projection_near   = -20,
 	projection_far    = 20,
-	depth_bias        = vmath.vector4(0.00002), -- Usually it is 0.00002
+	depth_bias        = vmath.vector4(0.00002), -- Usually it is 0.00002 for perspective. 0.002 for ortho projection
 	shadow_opacity    = vmath.vector4(0.3),  -- Shadow opacity
 }
 
@@ -96,6 +96,12 @@ function pixelart.set_depth_edge(depth_edge)
 	pixelart.settings.depth_edge_coefficient = vmath.vector4(depth_edge)
 end
 
+function pixelart.set_ambient_light(ambient_light)
+	pixelart.ambient_light.x = ambient_light.x
+	pixelart.ambient_light.y = ambient_light.y
+	pixelart.ambient_light.z = ambient_light.z
+end
+
 ---Set Pixel-art resolution for post-processing shader
 ---@param pixel_size integer Pixel size
 function pixelart.set_resolution(pixel_size)
@@ -158,9 +164,7 @@ function pixelart.init(pixel_settings, light_settings, shadow_settings)
 
 
 		if light_settings.diffuse_light_color ~= nil then
-			pixelart.ambient_light.x = light_settings.diffuse_light_color.x
-			pixelart.ambient_light.y = light_settings.diffuse_light_color.y
-			pixelart.ambient_light.z = light_settings.diffuse_light_color.z
+			pixelart.set_ambient_light(light_settings.diffuse_light_color)
 		end
 	end
 

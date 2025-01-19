@@ -25,16 +25,4 @@ function manager.init()
 	window.set_listener(window_resized)
 end
 
-function manager.message(_, message_id, message, _)
-	-- Update from GUI
-
-	if message_id == const.MSG.UPDATE_PIXEL_SIZE then
-		pixelart.set_resolution(message.constant_value.x)
-	elseif message_id == const.MSG.UPDATE_DEPTH then
-		pixelart.set_depth_edge(message.constant_value)
-	elseif message_id == const.MSG.UPDATE_EDGE then
-		pixelart.set_normal_edge(message.constant_value)
-	end
-end
-
 return manager

@@ -1,7 +1,4 @@
 #version 140
-
-in highp vec4 var_position;
-in mediump vec3 var_normal;
 in mediump vec2 var_texcoord0;
 
 out vec4 color_out;

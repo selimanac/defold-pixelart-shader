@@ -12,15 +12,10 @@ uniform vx_uniforms
     mediump mat4 mtx_normal;
 };
 
-out highp vec4 var_position;
-out mediump vec3 var_normal;
 out mediump vec2 var_texcoord0;
 
 void main()
 {
-    vec4 p = mtx_worldview * vec4(position.xyz, 1.0);
-    var_position = p;
     var_texcoord0 = texcoord0;
-    var_normal = normalize((mtx_normal * vec4(normal, 0.0)).xyz);
-    gl_Position = mtx_proj * p;
+    gl_Position = mtx_proj * mtx_worldview * vec4(position.xyz, 1.0);
 }

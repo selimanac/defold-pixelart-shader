@@ -14,11 +14,11 @@ input_method = HiddenInputField
 
 [project]
 title = defold-pixelart-shader
+dependencies#0 = https://github.com/britzl/extension-imgui/archive/refs/heads/master.zip
 
 [graphics]
 default_texture_min_filter = linear
 default_texture_mag_filter = linear
-opengl_version_hint = 0
 
 [input]
 repeat_delay = 0.0
@@ -26,4 +26,7 @@ repeat_interval = 0.0
 
 [library]
 include_dirs = pixelart
+
+[native_extension]
+app_manifest = /manifest/vulkan.appmanifest
 

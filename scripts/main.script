@@ -2,16 +2,12 @@ local manager = require("scripts.manager")
 
 function init(self)
 	msg.post("@render:", "use_camera_projection")
-	msg.post("@render:", "clear_color", { color = vmath.vector4(198 / 255, 189 / 255, 22 / 255, 0) })
+	msg.post("@render:", "clear_color", { color = vmath.vector4(198 / 255, 189 / 255, 22 / 255, 1) })
 
 	if profiler then
-		profiler.enable_ui(true)
+		profiler.enable_ui(false)
 		profiler.set_ui_view_mode(profiler.VIEW_MODE_MINIMIZED)
 	end
 
 	manager.init()
-end
-
-function on_message(self, message_id, message, sender)
-	manager.message(self, message_id, message, sender)
 end

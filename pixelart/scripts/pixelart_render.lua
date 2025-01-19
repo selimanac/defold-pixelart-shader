@@ -71,13 +71,14 @@ function pixelart_render.init(self)
 	self.light_projection                                   = vmath.matrix4()
 end
 
-function pixelart_render.update(self, camera_frustum, view, proj)
+function pixelart_render.update(self, camera_frustum, view, proj, window_width, window_height, clear_buffers)
 	render.enable_state(graphics.STATE_DEPTH_TEST)
+	render.set_depth_mask(true)
 
 	---------------------------------------------------
 	-- resize pixelart render targets
-	render.set_render_target_size(self.pixelart_render_target, self.state.window_width, self.state.window_height)
-	render.set_render_target_size(self.pixelart_pixelate_render_target, self.state.window_width, self.state.window_height)
+	render.set_render_target_size(self.pixelart_render_target, window_width, window_height)
+	render.set_render_target_size(self.pixelart_pixelate_render_target, window_width, window_height)
 
 	self.light_constant_buffer.light = pixelart.light
 	self.light_constant_buffer.diffuse_light = pixelart.ambient_light
@@ -87,7 +88,7 @@ function pixelart_render.update(self, camera_frustum, view, proj)
 
 	if pixelart.render_shadows then
 		-- resize shadow render target
-		render.set_render_target_size(self.shadow_render_target, self.state.window_width, self.state.window_height)
+		render.set_render_target_size(self.shadow_render_target, window_width, window_height)
 
 		---------------------------------------------------
 		-- lights
@@ -111,7 +112,7 @@ function pixelart_render.update(self, camera_frustum, view, proj)
 
 		render.enable_state(graphics.FACE_TYPE_FRONT)
 		render.set_render_target(self.shadow_render_target, { transient = { graphics.BUFFER_TYPE_DEPTH_BIT } })
-		render.clear(self.state.clear_buffers)
+		render.clear(clear_buffers)
 
 		render.enable_material("shadow_pass")
 		render.draw(self.pixelart_predicates.pixelart_model, { frustum = camera_frustum })
@@ -130,7 +131,7 @@ function pixelart_render.update(self, camera_frustum, view, proj)
 	render.enable_state(graphics.STATE_CULL_FACE)
 
 	render.set_render_target(self.pixelart_render_target, { transient = { graphics.BUFFER_TYPE_DEPTH_BIT } })
-	render.clear(self.state.clear_buffers)
+	render.clear(clear_buffers)
 
 	-- draw model to depth
 	render.draw(self.pixelart_predicates.pixelart_model, { frustum = camera_frustum, constants = self.light_constant_buffer })
@@ -160,7 +161,7 @@ function pixelart_render.update(self, camera_frustum, view, proj)
 	-- render pixelart_render_target to first pass
 	render.set_render_target(self.pixelart_pixelate_render_target)
 
-	render.clear(self.state.clear_buffers)
+	render.clear(clear_buffers)
 
 	render.enable_texture('diffuse_texture', self.pixelart_render_target, graphics.BUFFER_TYPE_COLOR0_BIT)
 	render.enable_texture('normal_texture', self.pixelart_render_target, graphics.BUFFER_TYPE_COLOR0_BIT)

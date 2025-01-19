@@ -196,7 +196,7 @@ function init(self)
     update_state(state)
 
     -- *******************************
-    -- PIXELART INIT
+    -- PIXEL-ART INIT
     -- *******************************
     pixelart_render.init(self)
     -- *******************************
@@ -225,7 +225,7 @@ function update(self)
     render.set_blend_func(graphics.BLEND_FACTOR_SRC_ALPHA, graphics.BLEND_FACTOR_ONE_MINUS_SRC_ALPHA)
 
     -- *******************************
-    -- PIXELART RENDER
+    -- PIXEL-ART RENDER
     -- *******************************
     pixelart_render.update(self, self.state.cameras.camera_world.options.frustum, self.state.cameras.camera_world.view, self.state.cameras.camera_world.proj, self.state.window_width, self.state.window_height, self.state.clear_buffers)
     -- *******************************

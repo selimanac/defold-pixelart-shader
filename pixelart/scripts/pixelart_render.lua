@@ -3,11 +3,11 @@ local pixelart        = require("pixelart.scripts.pixelart")
 local pixelart_render = {}
 
 function pixelart_render.init(self)
-	local w            = render.get_width()
-	local h            = render.get_height()
+	local w                                                 = render.get_width()
+	local h                                                 = render.get_height()
 
 	-- render target buffer parameters
-	local color_params = {
+	local color_params                                      = {
 		format = graphics.TEXTURE_FORMAT_RGBA,
 		width = w,
 		height = h,
@@ -17,7 +17,7 @@ function pixelart_render.init(self)
 		v_wrap = graphics.TEXTURE_WRAP_CLAMP_TO_EDGE
 	}
 
-	local depth_params = {
+	local depth_params                                      = {
 		format     = graphics.TEXTURE_FORMAT_DEPTH,
 		width      = w,
 		height     = h,
@@ -27,7 +27,6 @@ function pixelart_render.init(self)
 		v_wrap     = graphics.TEXTURE_WRAP_CLAMP_TO_EDGE,
 		flags      = render.TEXTURE_BIT -- this will create the depth buffer as a texture
 	}
-
 
 	-- render target buffers
 	self.pixelart_render_target                             = render.render_target(
@@ -124,7 +123,6 @@ function pixelart_render.update(self, camera_frustum, view, proj, window_width, 
 	---------------------------------------------------
 	-- depth pass
 	---------------------------------------------------
-
 	render.set_view(view)
 	render.set_projection(proj)
 
@@ -158,7 +156,8 @@ function pixelart_render.update(self, camera_frustum, view, proj, window_width, 
 	render.set_projection(vmath.matrix4())
 
 	---------------------------------------------------
-	-- render pixelart_render_target to first pass
+	-- render pixelart_render_target
+	---------------------------------------------------
 	render.set_render_target(self.pixelart_pixelate_render_target)
 
 	render.clear(clear_buffers)
@@ -175,6 +174,7 @@ function pixelart_render.update(self, camera_frustum, view, proj, window_width, 
 
 	---------------------------------------------------
 	-- render pixelart_pixelate_render_target to default render target
+	---------------------------------------------------
 	render.set_render_target(render.RENDER_TARGET_DEFAULT)
 
 	render.enable_texture('diffuse_texture', self.pixelart_pixelate_render_target, graphics.BUFFER_TYPE_COLOR0_BIT)

@@ -123,7 +123,7 @@ Materials can be found in pixelart/materials folder.
 Very similar to build-in model_instanced material
 
 ### pixelart/model/pixelart_model_unlit.material
-Unlit model material
+Unlit instanced model material
 
 ### pixelart/model/pixelart_model_world.material
 Same as pixelart_model.material but for World Vertex Space required by animated 3D models.

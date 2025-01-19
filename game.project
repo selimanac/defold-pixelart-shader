@@ -23,6 +23,7 @@ default_texture_mag_filter = linear
 [input]
 repeat_delay = 0.0
 repeat_interval = 0.0
+game_binding = /example/input/game.input_bindingc
 
 [library]
 include_dirs = pixelart

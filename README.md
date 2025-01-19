@@ -16,7 +16,7 @@ https://github.com/selimanac/defold-pixelart-shader-example
 This post-processing effect cannot make every 3D model perfect for pixel art. Do not expect miracles.
 
 - This library does not contain any pixel-perfect solutions. It is up to you to handle camera, pixel size and up-scaling
-- Use direct rotations (top, left, right, bottom) or isometric rotations(x:30, y:45) for camera views for better aligning pixels.
+- Use direct rotations (top, left, right, bottom) or isometric rotations (e.g., x: 30, y: 45) for camera views to better align pixels.
 - Use an orthographic camera projection.
 - Use simple/flat/basic 3D models. Small details looks bad.
 - Use simple/flat textures. Even gradients are undesirable, stick to solid colors if you can.

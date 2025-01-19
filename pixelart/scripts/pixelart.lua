@@ -164,7 +164,6 @@ function pixelart.init(pixel_settings, light_settings, shadow_settings)
 			pixelart.set_light(light_settings.source, light_settings.target)
 		end
 
-
 		if light_settings.diffuse_light_color ~= nil then
 			pixelart.set_ambient_light(light_settings.diffuse_light_color)
 		end

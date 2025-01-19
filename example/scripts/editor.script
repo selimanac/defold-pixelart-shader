@@ -9,7 +9,6 @@ end
 function update(self, dt)
 	imgui.begin_window("Settings", nil, imgui.WINDOWFLAGS_NONE)
 
-
 	changed, value = imgui.input_int("Pixel Size", pixelart.settings.pixel_size.x)
 	if changed then
 		pixelart.set_pixel_size(value)
@@ -20,7 +19,6 @@ function update(self, dt)
 	if changed then
 		pixelart.set_normal_edge(value)
 	end
-
 
 	changed, value = imgui.input_float("Depth Edge", pixelart.settings.depth_edge_coefficient.x, 0.01, 1.0, 2)
 	if changed then

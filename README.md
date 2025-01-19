@@ -6,7 +6,7 @@ This is the pixel-art post-process shaders for 3D.
 
 ## Example
 
-There is a [simple example](/example) included in this project. 
+There is a [simple example](/example) included in this project. Demo: https://selimanac.github.io/defold-pixelart-shader/
 
 https://github.com/selimanac/defold-pixelart-shader-example
 

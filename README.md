@@ -1,3 +1,7 @@
+
+![defold-pixel-art](/.github/example.png?raw=true)
+
+
 This is the pixel-art post-process shaders for 3D. 
 
 ## Example
@@ -88,10 +92,10 @@ Set light source and target
 ### scripts/pixelart_render.lua
 
 #### pixelart_render.init(`self`)
-Must be called on init(self) function
+Must be called on render_script's `init(self)` function
 
 #### pixelart_render.update(`self`, `camera_frustum`, `view`, `proj`)
-Must be called on update(self) function
+Must be called on render_script's `update(self)` function
 
 * `camera_frustum` (matrix4)  Camera frustum
 * `view` (matrix4)  Camera view
@@ -123,7 +127,7 @@ Shadow material from [Jhonny Göransson](https://x.com/jhonnygoransson)'s [examp
 
 ### Credits
 
-- Shadow shader are mostly from [Jhonny Göransson](https://x.com/jhonnygoransson)'s [examples](https://github.com/Jhonnyg/my-public-defold-examples) and [Igor Suntsev](https://x.com/dragosha)'s (aka [@dragosha](https://x.com/dragosha)) [Light and Shadows](https://github.com/Dragosha/defold-light-and-shadows)
+- Shadow shaders are mostly from [Jhonny Göransson](https://x.com/jhonnygoransson)'s [examples](https://github.com/Jhonnyg/my-public-defold-examples) and [Igor Suntsev](https://x.com/dragosha)'s (aka [@dragosha](https://x.com/dragosha)) [Light and Shadows](https://github.com/Dragosha/defold-light-and-shadows)
 - Slightly modified version of Abadonna's [orbit-camera](https://github.com/abadonna/defold-orbit-camera)
 - [Björn Ritzl](https://x.com/bjornritzl)'s [extension-imgui](https://github.com/britzl/extension-imgui)
 

@@ -29,7 +29,6 @@ function pixelart_render.init(self)
 	}
 
 
-
 	-- render target buffers
 	self.pixelart_render_target                             = render.render_target(
 		'pixelart_buffer',
@@ -72,7 +71,7 @@ function pixelart_render.init(self)
 	self.light_projection                                   = vmath.matrix4()
 end
 
-function pixelart_render.update(self)
+function pixelart_render.update(self, camera_frustum, view, proj)
 	render.enable_state(graphics.STATE_DEPTH_TEST)
 
 	---------------------------------------------------
@@ -115,8 +114,8 @@ function pixelart_render.update(self)
 		render.clear(self.state.clear_buffers)
 
 		render.enable_material("shadow_pass")
-		render.draw(self.pixelart_predicates.pixelart_model, { frustum = self.state.cameras.camera_world.options.frustum })
-		render.draw(self.pixelart_predicates.shadow_render, { frustum = self.state.cameras.camera_world.options.frustum })
+		render.draw(self.pixelart_predicates.pixelart_model, { frustum = camera_frustum })
+		render.draw(self.pixelart_predicates.shadow_render, { frustum = camera_frustum })
 
 		render.disable_material()
 	end
@@ -125,8 +124,8 @@ function pixelart_render.update(self)
 	-- depth pass
 	---------------------------------------------------
 
-	render.set_view(self.state.cameras.camera_world.view)
-	render.set_projection(self.state.cameras.camera_world.proj)
+	render.set_view(view)
+	render.set_projection(proj)
 
 	render.enable_state(graphics.STATE_CULL_FACE)
 
@@ -134,12 +133,12 @@ function pixelart_render.update(self)
 	render.clear(self.state.clear_buffers)
 
 	-- draw model to depth
-	render.draw(self.pixelart_predicates.pixelart_model, { frustum = self.state.cameras.camera_world.options.frustum, constants = self.light_constant_buffer })
+	render.draw(self.pixelart_predicates.pixelart_model, { frustum = camera_frustum, constants = self.light_constant_buffer })
 
 	-- Shadow
 	if pixelart.render_shadows then
 		render.enable_texture('shadow_render_depth_texture', self.shadow_render_target, graphics.BUFFER_TYPE_DEPTH_BIT)
-		render.draw(self.pixelart_predicates.shadow_render, { frustum = self.state.cameras.camera_world.options.frustum, constants = self.light_constant_buffer })
+		render.draw(self.pixelart_predicates.shadow_render, { frustum = camera_frustum, constants = self.light_constant_buffer })
 		render.disable_texture('shadow_render_depth_texture')
 	end
 
@@ -148,8 +147,8 @@ function pixelart_render.update(self)
 
 	-- billboard particles and billboard sprites
 	render.enable_state(graphics.STATE_BLEND)
-	render.draw(self.pixelart_predicates.pixelart_billboard_sprite, { frustum = self.state.cameras.camera_world.options.frustum })
-	render.draw(self.pixelart_predicates.pixelart_billboard_particle, { frustum = self.state.cameras.camera_world.options.frustum })
+	render.draw(self.pixelart_predicates.pixelart_billboard_sprite, { frustum = camera_frustum })
+	render.draw(self.pixelart_predicates.pixelart_billboard_particle, { frustum = camera_frustum })
 	render.disable_state(graphics.STATE_BLEND)
 
 	---------------------------------------------------

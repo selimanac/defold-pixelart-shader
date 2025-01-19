@@ -6,8 +6,8 @@ render = /pixelart/render/pixelart.renderc
 shared_state = 1
 
 [display]
-width = 1280
-height = 720
+width = 640
+height = 360
 
 [android]
 input_method = HiddenInputField

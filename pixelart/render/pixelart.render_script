@@ -227,7 +227,7 @@ function update(self)
     -- *******************************
     -- PIXELART RENDER
     -- *******************************
-    pixelart_render.update(self)
+    pixelart_render.update(self, self.state.cameras.camera_world.options.frustum, self.state.cameras.camera_world.view, self.state.cameras.camera_world.proj)
     -- *******************************
 
     render.draw_debug3d()

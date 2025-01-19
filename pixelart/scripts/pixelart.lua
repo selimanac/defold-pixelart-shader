@@ -67,13 +67,13 @@ local function set_light_transform()
 end
 
 ---Set shadow depth bias
----@param depth_bias integer Depth Bias
+---@param depth_bias number Depth Bias
 function pixelart.set_depth_bias(depth_bias)
 	pixelart.light_shadow_settings.depth_bias = vmath.vector4(depth_bias)
 end
 
 ---Set shadow opacity
----@param shadow_opacity integer Shadow opacity
+---@param shadow_opacity number Shadow opacity
 function pixelart.set_shadow_opacity(shadow_opacity)
 	pixelart.light_shadow_settings.shadow_opacity = vmath.vector4(shadow_opacity)
 end
@@ -85,17 +85,19 @@ function pixelart.set_pixel_size(pixel_size)
 end
 
 ---Set Pixel-art normal edge for sharpening edges
----@param normal_edge integer Normal edge
+---@param normal_edge number Normal edge
 function pixelart.set_normal_edge(normal_edge)
 	pixelart.settings.normal_edge_coefficient = vmath.vector4(normal_edge)
 end
 
 ---Set Pixel-art depth edge for outline
----@param depth_edge integer Depth edge
+---@param depth_edge number Depth edge
 function pixelart.set_depth_edge(depth_edge)
 	pixelart.settings.depth_edge_coefficient = vmath.vector4(depth_edge)
 end
 
+---Set Pixel-art models ambient light
+---@param ambient_light vector3 Ambient light
 function pixelart.set_ambient_light(ambient_light)
 	pixelart.ambient_light.x = ambient_light.x
 	pixelart.ambient_light.y = ambient_light.y
@@ -114,8 +116,8 @@ function pixelart.set_resolution(pixel_size)
 end
 
 ---Set Light source and target
----@param light_source string Light source
----@param light_target string Light target
+---@param light_source string Light source gameobject URL
+---@param light_target string Light target gameobject URL
 function pixelart.set_light(light_source, light_target)
 	light_source_position = go.get_position(light_source)
 	light_target_position = go.get_position(light_target)
@@ -139,7 +141,7 @@ end
 ---@class LightSettings
 ---@field source string Light source URL.
 ---@field target string Light target URL.
----@field diffuse_light_color? vector4 Diffuse light color.
+---@field diffuse_light_color? vector3 Diffuse light color.
 
 -- Pixel-art post-process settings
 ---@class PixelartSettings

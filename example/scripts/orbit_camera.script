@@ -10,7 +10,7 @@ go.property("angle_y", 45)
 go.property("angle_min", -30)
 go.property("angle_max", 45)
 
-local const = require("scripts.const")
+
 
 local function set_camera(self)
 	self.center = self.target ~= hash("") and go.get_world_position(self.target) or vmath.vector3(0)
@@ -57,9 +57,7 @@ function on_input(self, action_id, action)
 		toogle_auto_turn(self)
 	end
 
-	if const.is_gui_updating == true then
-		return
-	end
+
 	if action_id == hash("touch") then
 		self.touch_down = true
 		if action.released then

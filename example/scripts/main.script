@@ -1,4 +1,4 @@
-local manager = require("scripts.manager")
+local manager = require("example.scripts.manager")
 
 function init(self)
 	msg.post("@render:", "use_camera_projection")

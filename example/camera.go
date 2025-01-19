@@ -1,6 +1,6 @@
 components {
   id: "orbit_camera"
-  component: "/scripts/orbit_camera.script"
+  component: "/example/scripts/orbit_camera.script"
 }
 embedded_components {
   id: "camera"

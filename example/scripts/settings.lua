@@ -28,16 +28,4 @@ const.LIGHT_SETTINGS  = {
 	diffuse_light_color = vmath.vector3(0.5), -- Diffuse light color
 }
 
--- Msg pre-hashs
-const.MSG             = {
-	UPDATE_DEPTH = hash('update_depth'),
-	UPDATE_EDGE = hash('update_edge'),
-	UPDATE_PIXEL_SIZE = hash('update_pixel_size'),
-	UPDATE_DAFAULT_VALUES = hash('update_dafault_values')
-}
-
-
--- GUI drag-drop
-const.is_gui_updating = false
-
 return const

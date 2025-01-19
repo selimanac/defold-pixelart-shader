@@ -1,5 +1,5 @@
 [bootstrap]
-main_collection = /main/main.collectionc
+main_collection = /example/example.collectionc
 render = /pixelart/render/pixelart.renderc
 
 [script]
@@ -28,5 +28,5 @@ repeat_interval = 0.0
 include_dirs = pixelart
 
 [native_extension]
-app_manifest = /manifest/vulkan.appmanifest
+app_manifest = /example/manifest/vulkan.appmanifest
 

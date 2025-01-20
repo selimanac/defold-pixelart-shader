@@ -211,7 +211,7 @@ var FileLoader = {
 var EngineLoader = {
     
     
-    wasm_size: 3315215,
+    wasm_size: 3315505,
     
     wasmjs_size: 265330,
     
@@ -710,7 +710,8 @@ var ProgressView = {
 
             // Remove any background/splash image that was set in runApp().
             // Workaround for Safari bug DEF-3061.
-            Module.canvas.style.background = "";
+            Module.canvas.style.background = "none";
+            Module.canvas.style.backgroundColor = "black";
         }
     }
 };

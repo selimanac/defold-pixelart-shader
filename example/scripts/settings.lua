@@ -14,12 +14,12 @@ settings.PIXEL_SETTINGS  = {
 -- Light orthographic projection settings for shadow
 -- Values are per-scene dependent and must be tweaked accordingly.
 settings.SHADOW_SETTINGS = {
-	projection_width  = 14,
-	projection_height = 14,
+	projection_width  = 20,
+	projection_height = 20,
 	projection_near   = -80,
 	projection_far    = 80,
-	depth_bias        = 0.002, -- Usually, it's 0.00002 for perspective and 0.002 for orthographic projection.
-	shadow_opacity    = 0.4 -- Shadow opacity
+	depth_bias        = 0.0002, -- Usually, it's 0.00002 for perspective and 0.002 for orthographic projection.
+	shadow_opacity    = 0.4  -- Shadow opacity
 }
 
 settings.LIGHT_SETTINGS  = {

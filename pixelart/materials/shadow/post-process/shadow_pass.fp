@@ -1,8 +1,5 @@
 #version 140
 
-in highp vec2 var_texcoord0;
-uniform highp sampler2D tex0;
-
 out vec4 fragColor;
 
 vec4 float_to_rgba(float v)
@@ -15,6 +12,6 @@ vec4 float_to_rgba(float v)
 
 void main()
 {
-    vec4 color = texture(tex0, var_texcoord0.xy);
+
     fragColor = float_to_rgba(gl_FragCoord.z);
 }

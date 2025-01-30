@@ -3,6 +3,7 @@
 in highp vec4 position;
 in mediump vec2 texcoord0;
 in mediump vec3 normal;
+
 in mediump mat4 mtx_world;
 in mediump mat4 mtx_normal;
 

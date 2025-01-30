@@ -1,6 +1,8 @@
-local pixelart        = require("pixelart.scripts.pixelart")
+local pixelart          = require("pixelart.scripts.pixelart")
 
-local pixelart_render = {}
+local pixelart_render   = {}
+
+local BUFFER_RESOLUTION = 2048
 
 function pixelart_render.init(self)
 	local w                                                 = render.get_width()
@@ -87,7 +89,7 @@ function pixelart_render.update(self, camera_frustum, view, proj, window_width, 
 
 	if pixelart.render_shadows then
 		-- resize shadow render target
-		render.set_render_target_size(self.shadow_render_target, window_width, window_height)
+		render.set_render_target_size(self.shadow_render_target, BUFFER_RESOLUTION, BUFFER_RESOLUTION)
 
 		---------------------------------------------------
 		-- lights
@@ -107,6 +109,7 @@ function pixelart_render.update(self, camera_frustum, view, proj, window_width, 
 		---------------------------------------------------
 		render.set_view(self.light_transform)
 		render.set_projection(self.light_projection)
+		render.set_viewport(0, 0, BUFFER_RESOLUTION, BUFFER_RESOLUTION)
 		--	local light_frustum = self.light_projection * self.light_transform
 
 		render.enable_state(graphics.FACE_TYPE_FRONT)
@@ -115,7 +118,7 @@ function pixelart_render.update(self, camera_frustum, view, proj, window_width, 
 
 		render.enable_material("shadow_pass")
 		render.draw(self.pixelart_predicates.pixelart_model, { frustum = camera_frustum })
-		render.draw(self.pixelart_predicates.shadow_render, { frustum = camera_frustum })
+		--	render.draw(self.pixelart_predicates.shadow_render, { frustum = camera_frustum })
 
 		render.disable_material()
 	end
@@ -125,6 +128,7 @@ function pixelart_render.update(self, camera_frustum, view, proj, window_width, 
 	---------------------------------------------------
 	render.set_view(view)
 	render.set_projection(proj)
+	render.set_viewport(0, 0, window_width, window_height)
 
 	render.enable_state(graphics.STATE_CULL_FACE)
 
